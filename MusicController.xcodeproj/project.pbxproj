@@ -29,6 +29,9 @@
 		631610AC0F0A386D00D4655D /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 631610AB0F0A386D00D4655D /* appcast.xml */; };
 		631611DF0F0A8BC400D4655D /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 631611DE0F0A8BC400D4655D /* LICENSE.txt */; };
 		631611E80F0A94B900D4655D /* icons2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 631611E70F0A94B900D4655D /* icons2.icns */; };
+		6351A9E0106E2799004E42FB /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6352DB1A106E1C81008001F9 /* Sparkle.framework */; };
+		6351A9E1106E2799004E42FB /* VVOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6352DB1B106E1C81008001F9 /* VVOSC.framework */; };
+		6351A9E2106E2799004E42FB /* WiiRemote.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6352DB1C106E1C81008001F9 /* WiiRemote.framework */; };
 		6352DB1D106E1C81008001F9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1A106E1C81008001F9 /* Sparkle.framework */; };
 		6352DB1E106E1C81008001F9 /* VVOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1B106E1C81008001F9 /* VVOSC.framework */; };
 		6352DB1F106E1C81008001F9 /* WiiRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1C106E1C81008001F9 /* WiiRemote.framework */; };
@@ -62,6 +65,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6351A9E0106E2799004E42FB /* Sparkle.framework in CopyFiles */,
+				6351A9E1106E2799004E42FB /* VVOSC.framework in CopyFiles */,
+				6351A9E2106E2799004E42FB /* WiiRemote.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
