@@ -1,0 +1,493 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		6316111A0F0A4C3900D4655D /* Distribution */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 631611260F0A4C5800D4655D /* Build configuration list for PBXAggregateTarget "Distribution" */;
+			buildPhases = (
+				631611190F0A4C3900D4655D /* ShellScript */,
+				63025E320F0B908E00F4A18F /* ShellScript */,
+			);
+			dependencies = (
+				6316111E0F0A4C5100D4655D /* PBXTargetDependency */,
+			);
+			name = Distribution;
+			productName = Distribution;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		631191FB0E0C0BE9004565F9 /* GeneradorEv.m in Sources */ = {isa = PBXBuildFile; fileRef = 631191FA0E0C0BE9004565F9 /* GeneradorEv.m */; };
+		631610AA0F0A2C7200D4655D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 631610A90F0A2C7200D4655D /* dsa_pub.pem */; };
+		631610AC0F0A386D00D4655D /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 631610AB0F0A386D00D4655D /* appcast.xml */; };
+		631611DF0F0A8BC400D4655D /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 631611DE0F0A8BC400D4655D /* LICENSE.txt */; };
+		631611E80F0A94B900D4655D /* icons2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 631611E70F0A94B900D4655D /* icons2.icns */; };
+		6352DB1D106E1C81008001F9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1A106E1C81008001F9 /* Sparkle.framework */; };
+		6352DB1E106E1C81008001F9 /* VVOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1B106E1C81008001F9 /* VVOSC.framework */; };
+		6352DB1F106E1C81008001F9 /* WiiRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1C106E1C81008001F9 /* WiiRemote.framework */; };
+		639B073A0E1000F900EE376F /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 639B07390E1000F900EE376F /* icons.icns */; };
+		639CE73D0E0BAB6D00A20F57 /* MidiDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE73C0E0BAB6D00A20F57 /* MidiDevice.m */; };
+		639CE7400E0BAB8500A20F57 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE73F0E0BAB8500A20F57 /* AppController.m */; };
+		639CE7CD0E0BBD8A00A20F57 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */; };
+		63B1EECB0E0D6CBE003691CA /* WiiControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1EECA0E0D6CBE003691CA /* WiiControls.m */; };
+		63B911F90E0E53DD00CE2779 /* MidiEventOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B911F80E0E53DD00CE2779 /* MidiEventOutput.m */; };
+		63B912220E0E57FD00CE2779 /* Documentation.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63B912210E0E57FD00CE2779 /* Documentation.rtf */; };
+		63B94C8C0F0624F200C72B50 /* OSCEventClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B94C8B0F0624F200C72B50 /* OSCEventClass.m */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6316111D0F0A4C5100D4655D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
+			remoteInfo = MusicController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		631192830E0C2018004565F9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* MusicController_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicController_Prefix.pch; sourceTree = "<group>"; };
+		631191F90E0C0BE9004565F9 /* GeneradorEv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneradorEv.h; sourceTree = "<group>"; };
+		631191FA0E0C0BE9004565F9 /* GeneradorEv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneradorEv.m; sourceTree = "<group>"; };
+		631610A90F0A2C7200D4655D /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = SOURCE_ROOT; };
+		631610AB0F0A386D00D4655D /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = SOURCE_ROOT; };
+		631611DE0F0A8BC400D4655D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		631611E70F0A94B900D4655D /* icons2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons2.icns; sourceTree = SOURCE_ROOT; };
+		6352DB1A106E1C81008001F9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
+		6352DB1B106E1C81008001F9 /* VVOSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVOSC.framework; path = Frameworks/VVOSC.framework; sourceTree = SOURCE_ROOT; };
+		6352DB1C106E1C81008001F9 /* WiiRemote.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WiiRemote.framework; path = Frameworks/WiiRemote.framework; sourceTree = SOURCE_ROOT; };
+		639B07390E1000F900EE376F /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
+		639CE73B0E0BAB6D00A20F57 /* MidiDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiDevice.h; sourceTree = "<group>"; };
+		639CE73C0E0BAB6D00A20F57 /* MidiDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiDevice.m; sourceTree = "<group>"; };
+		639CE73E0E0BAB8500A20F57 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		639CE73F0E0BAB8500A20F57 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		63B1EEC90E0D6CBE003691CA /* WiiControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiControls.h; sourceTree = "<group>"; };
+		63B1EECA0E0D6CBE003691CA /* WiiControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiiControls.m; sourceTree = "<group>"; };
+		63B911F70E0E53DD00CE2779 /* MidiEventOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiEventOutput.h; sourceTree = "<group>"; };
+		63B911F80E0E53DD00CE2779 /* MidiEventOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiEventOutput.m; sourceTree = "<group>"; };
+		63B912210E0E57FD00CE2779 /* Documentation.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Documentation.rtf; sourceTree = "<group>"; };
+		63B94C8A0F0624F200C72B50 /* OSCEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCEventClass.h; sourceTree = "<group>"; };
+		63B94C8B0F0624F200C72B50 /* OSCEventClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCEventClass.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* MusicController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				639CE7CD0E0BBD8A00A20F57 /* CoreMIDI.framework in Frameworks */,
+				6352DB1D106E1C81008001F9 /* Sparkle.framework in Frameworks */,
+				6352DB1E106E1C81008001F9 /* VVOSC.framework in Frameworks */,
+				6352DB1F106E1C81008001F9 /* WiiRemote.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				63B911F70E0E53DD00CE2779 /* MidiEventOutput.h */,
+				63B911F80E0E53DD00CE2779 /* MidiEventOutput.m */,
+				639CE73B0E0BAB6D00A20F57 /* MidiDevice.h */,
+				639CE73C0E0BAB6D00A20F57 /* MidiDevice.m */,
+				639CE73E0E0BAB8500A20F57 /* AppController.h */,
+				639CE73F0E0BAB8500A20F57 /* AppController.m */,
+				631191F90E0C0BE9004565F9 /* GeneradorEv.h */,
+				631191FA0E0C0BE9004565F9 /* GeneradorEv.m */,
+				63B1EEC90E0D6CBE003691CA /* WiiControls.h */,
+				63B1EECA0E0D6CBE003691CA /* WiiControls.m */,
+				63B94C8A0F0624F200C72B50 /* OSCEventClass.h */,
+				63B94C8B0F0624F200C72B50 /* OSCEventClass.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6352DB1A106E1C81008001F9 /* Sparkle.framework */,
+				6352DB1B106E1C81008001F9 /* VVOSC.framework */,
+				6352DB1C106E1C81008001F9 /* WiiRemote.framework */,
+				639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* MusicController.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* MusicController */ = {
+			isa = PBXGroup;
+			children = (
+				63B912200E0E57DB00CE2779 /* Docs */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = MusicController;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* MusicController_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				631611E70F0A94B900D4655D /* icons2.icns */,
+				631610AB0F0A386D00D4655D /* appcast.xml */,
+				631610A90F0A2C7200D4655D /* dsa_pub.pem */,
+				639B07390E1000F900EE376F /* icons.icns */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				631611DE0F0A8BC400D4655D /* LICENSE.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		63B912200E0E57DB00CE2779 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				63B912210E0E57FD00CE2779 /* Documentation.rtf */,
+			);
+			name = Docs;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* MusicController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "MusicController" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+				631192830E0C2018004565F9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MusicController;
+			productInstallPath = "$(HOME)/Applications";
+			productName = MusicController;
+			productReference = 8D1107320486CEB800E47090 /* MusicController.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MusicController" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* MusicController */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* MusicController */,
+				6316111A0F0A4C3900D4655D /* Distribution */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				63B912220E0E57FD00CE2779 /* Documentation.rtf in Resources */,
+				639B073A0E1000F900EE376F /* icons.icns in Resources */,
+				631610AA0F0A2C7200D4655D /* dsa_pub.pem in Resources */,
+				631610AC0F0A386D00D4655D /* appcast.xml in Resources */,
+				631611DF0F0A8BC400D4655D /* LICENSE.txt in Resources */,
+				631611E80F0A94B900D4655D /* icons2.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		63025E320F0B908E00F4A18F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "#!/bin/bash\nset -o errexit\n\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\nVERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nSHORT_VERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleShortVersionString)\nDOWNLOAD_BASE_URL=\"http://musiccontroller.googlecode.com/files\"\nRELEASENOTES_URL=\"http://code.google.com/p/musiccontroller/source/detail?r=$VERSION\"\n\nARCHIVE_FILENAME_ZIP=\"$PROJECT_NAME.$SHORT_VERSION.$VERSION.zip\"\nARCHIVE_FILENAME=\"$PROJECT_NAME.$SHORT_VERSION.$VERSION.dmg\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key 1\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nzip -qr \"$ARCHIVE_FILENAME_ZIP\" \"$PROJECT_NAME.app\"\n\nrm -f \"$PROJECT_NAME\"*.dmg\n\ndmgcanvas -t $SRCROOT/MusicControllerDMG.dmgCanvas -o $BUILT_PRODUCTS_DIR/$ARCHIVE_FILENAME\n\nSIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\nPUBDATE=$(date +\"%a, %d %b %G %T %z\")\nSIGNATURE=$(\n\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g') \\\n\t| openssl enc -base64\n)\n\n[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from keychain; false; }\n\ncat <<EOF\n\t\t<item>\n\t\t\t<title>Version $SHORT_VERSION $VERSION</title>\n\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n\t\t\t<pubDate>$PUBDATE</pubDate>\n\t\t\t<enclosure\n\t\t\t\turl=\"$DOWNLOAD_URL\"\n\t\t\t\tsparkle:version=\"$VERSION\"\n\t\t\t\tsparkle:shortVersionString=\"$SHORT_VERSION\"\n\t\t\t\ttype=\"application/octet-stream\"\n\t\t\t\tlength=\"$SIZE\"\n\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n\t\t\t/>\n\t\t</item>\nEOF\n\n#echo scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\n#echo scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml";
+			showEnvVarsInLog = 0;
+		};
+		631611190F0A4C3900D4655D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			comments = "Generate .zip";
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/python;
+			shellScript = "#!/usr/bin/python\n\nfrom AppKit import NSMutableDictionary\nimport os\n\ndef increaseVersion():\n    # reading svn version\n    version = os.popen('svnversion -n').read()\n    \n    version = version.split(':')[-1]\n    \n    if not version[-1].isdigit():\n        version = version[:-1]\n    \n    # reading info.plist file\n    projectPlist = NSMutableDictionary.dictionaryWithContentsOfFile_('Info.plist')\n    \n    # setting the svn version for CFBundleVersion key\n    projectPlist['CFBundleVersion'] = version\n    projectPlist.writeToFile_atomically_('Info.plist', True)\n\nif __name__ == '__main__':\n    increaseVersion()";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				639CE73D0E0BAB6D00A20F57 /* MidiDevice.m in Sources */,
+				639CE7400E0BAB8500A20F57 /* AppController.m in Sources */,
+				631191FB0E0C0BE9004565F9 /* GeneradorEv.m in Sources */,
+				63B1EECB0E0D6CBE003691CA /* WiiControls.m in Sources */,
+				63B911F90E0E53DD00CE2779 /* MidiEventOutput.m in Sources */,
+				63B94C8C0F0624F200C72B50 /* OSCEventClass.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6316111E0F0A4C5100D4655D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D1107260486CEB800E47090 /* MusicController */;
+			targetProxy = 6316111D0F0A4C5100D4655D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6316111B0F0A4C3900D4655D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Distribution;
+			};
+			name = Debug;
+		};
+		6316111C0F0A4C3900D4655D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Distribution;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/../vvosc/build/Release\"",
+					"\"$(SRCROOT)/../Sparkle 1.5b6\"",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MusicController_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = MusicController;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = DBV;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/../vvosc/build/Release\"",
+					"\"$(SRCROOT)/../Sparkle 1.5b6\"",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_ENABLE_OBJC_GC = unsupported;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MusicController_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = MusicController;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = DBV;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "Frameworks/**";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				FRAMEWORK_SEARCH_PATHS = "Frameworks/**";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		631611260F0A4C5800D4655D /* Build configuration list for PBXAggregateTarget "Distribution" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6316111B0F0A4C3900D4655D /* Debug */,
+				6316111C0F0A4C3900D4655D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "MusicController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MusicController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
