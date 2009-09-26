@@ -1,0 +1,9 @@
+.AppleDouble
+.DS_Store
+.svn
+# xcode noise
+build/*
+*.mode1v3
+
+# osx noise
+profile
