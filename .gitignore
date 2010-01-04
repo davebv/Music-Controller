@@ -1,9 +1,16 @@
 .AppleDouble
 .DS_Store
 .svn
-# xcode noise
-build/*
+*.swp
+*~.nib
 *.mode1v3
+*.mode2v3
+# xcode noise
+build/
+*.pbxuser
+*.perspective
+*.perspectivev3
+
 
 # osx noise
 profile

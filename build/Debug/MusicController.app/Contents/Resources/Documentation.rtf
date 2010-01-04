@@ -1,871 +1,0 @@
-{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf330
-{\fonttbl\f0\fnil\fcharset0 Monaco;\f1\froman\fcharset0 Times-Roman;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red128\green128\blue128;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs20 \cf2 // 2008  MzW!! aka DaveBV muzike@gmail.com\
-// MzW (geekymusic)\
-//\
-// For more information go to: http://lastkth.blogspot.com/search/label/Wii\
-// This file is free to share, use and modify but if you change it, please,\
-//    publish the changes and let me know about it. Thank you.\
-//\
-//\
-// Modo 1:\
-//   - Navegaci\'dbn Escenas: Flechas arriba y abajo\
-//   - Lanzamiento de escena: B + aceleracion Y\
-//   - Beat repeat: A (pulsado: activo, no pulsado: desactivdo)\
-//                  Rotar izda. drcha: Gride del repeat\
-//                  Rotar hacia arriba: pitch\
-// Modo 2:\
-//   - Navegaci\'dbn Escenas: Flechas arriba y abajo\
-//   - Lanzamiento de escena: B + aceleracion Y\
-//   - Chain selector: Rotar izda. drcha: CutOff filtro\
-//                  Rotar hacia arriba: pitch\
-// Modo 3: Scratch mode.\
-//   - Mover el mando adelante y atras para scratch\
-// Modo 4: Sable Laser.\
-//            (Asignaci\'dbn de distintas notas midi)\
-//   - El sample se dispara cuando acelero el mando verticalmente y a la vez\
-//        pulso alguno de los botones\
-//          o Bot\'dbn B\
-//          o Bot\'dbn A\
-//          o Flecha arriba\
-//          o Flecha abajo\
-\
-\
-// Salida por Midi Yoke NT:7\
-Midi.DeviceOut = 2 ;\
-Midi.DefaultChannel = 15 ;\
-\
-// Elecci\'dbn de los modos con los botones (+) y (-)\
-// Cada vez que se cambia de modo, el mando vibra y cambia la posici\'dbn del LED:\
-if ( wiimote.plus and wiimote.Minus == 0 ) then\
-  if ( var.rmbl = false ) then\
-    wiimote.Rumble = 1 ;\
-    wait 1 ms ;\
-    wiimote.Rumble = 0 ;\
-    if (var.modo == 5) then\
-     var.modo = 1 ;\
-     wait 200 ms ;\
-    else\
-     var.modo++ ;\
-     wait 200 ms ;\
-    endif\
-  endif\
-  var.rmbl = true ;\
-else\
-  var.rmbl = false ;\
-endif\
-\
-if ( wiimote.Minus and wiimote.Plus == 0 ) then\
-  if (var.rmbl = false ) then\
-    wiimote.Rumble = 1 ;\
-    wait 1 ms ;\
-    wiimote.Rumble = 0 ;\
-    if (var.modo == 0) then\
-     var.modo = 4 ;\
-     wait 200 ms ;\
-    else \{\
-     var.modo-- ;\
-     wait 200 ms ;\
-    endif\
-  endif\
-  var.rmbl = true ;\
-else\
-  var.rmbl = false ;\
-endif\
-\
-if ( wiimote.Plus and wiimote.Minus)then\
-  if ( var.rmbl = false )\
-    wiimote.Rumble = 1 ;\
-    wait 1 ms ;\
-    wiimote.Rumble = 0 ;\
-    var.modo = 0 ;\
-    wait 600 ms ;\
-  endif\
-  var.rmbl = true ;\
-else\
-  var.rmbl = false ;\
-endif\
-\
-// LEDs to indicate the active mode.\
-if var.modo == 0 then\
-   Wiimote.Leds = 0\
-elsif var.modo == 1 then\
-   Wiimote.Leds = 1\
-elsif var.modo == 2 then\
-   Wiimote.Leds = 2\
-elsif var.modo == 3 then\
-   Wiimote.Leds = 4\
-elsif var.modo == 4 then\
-   Wiimote.Leds = 8\
-endif\
-/******************************************************************************/\
-// Debug Zone\
-// debug = "X=" + var.xRot + "   Y=" + var.yRot + "   Z=" + var.zRot\
-// debug = "Modo: " + var.modo + "Variable modo 4: " + var.accY42\
-// debug = var.rotacion1 + " A: " + wiimote.A + " Activado: " + var.A1\
-// debug = var.pulsado\
-// debug = wiimote.RawAccZ\
-// debug = "X=" + wiimote.gx + "   Y=" + wiimote.gy + "   Z=" + wiimote.gz\
-// debug = "dot1x=" + wiimote.dot1x + "  dot1y=" + wiimote.dot1y  + "  Vis: " + wiimote.dot1vis\
-// debug = "X: " + mouse.x + "  Y:" + mouse.y\
-// debug = var.rotacion3 + " GX: " + wiimote.gx\
-/******************************************************************************/\
-/******************************************************************************/\
-// Forces\
-var.xOffset = -3\
-var.yOffset = -22\
-var.zOffset = -3\
-\
-var.xRot = Wiimote1.RawForceX + var.xOffset\
-var.yRot = Wiimote1.RawForceY + var.yOffset\
-var.zRot = Wiimote1.RawForceZ + var.zOffset\
-// var.xRot = Wiimote1.gx\
-// var.yRot = Wiimote1.gy\
-// var.zRot = Wiimote1.gz\
-\
-// Suavizado del movimiento\
-var.xRot = smooth(var.xRot,5,2)\
-var.yRot = smooth(var.yRot,5,2)\
-var.zRot = smooth(var.zRot,5,2)\
-\
-/******************************************************/\
-/***********/\
-//  MODOS //\
-/**********/\
-// Asignaciones Ableton cuando tenemos modo CERO.\
-if ( var.modo == 0 ) \{\
-if Keyboard.A = true then\
- midi.Control32 = var.rotacion1\
-endif\
-if Keyboard.S = true then\
-midi.Control33 = var.inclinacion1\
-endif\
-if Keyboard.D = true then\
-midi.control34 = var.rotacion2\
-endif\
-if Keyboard.F = true then\
-midi.Control35 = var.inclinacion2\
-endif\
-if Keyboard.G = true then\
-midi.control52 = var.rotacion3\
-endif\
-\}\
-// Modo 1: Secuenciador + Beat Repeat\
-if var.modo == 1 \{\
-// Flechas\
-var.arriba1 = Wiimote.Up or Wiimote.Classic.Up\
-var.izquierda1 = Wiimote.Left or Wiimote.Classic.Left\
-var.derecha1 = Wiimote.Right or Wiimote.Classic.Right\
-var.abajo1 = Wiimote.Down or Wiimote.Classic.Down\
-\
-// Trigger para las escenas\
-var.accY1 = Wiimote.RelAccY\
-// Disparo de la escena\
-var.disparo1 = (Wiimote.B and (var.accY1 > 20 m per s per s))\
-\
-// Para el beat repeat del total\
-if Wiimote.A\
-var.rotacion1 = (MapRange(var.xRot, 26,-26, 0,127))/127\
-else\
-var.rotacion1 = var.rotacion1 ;\
-endif\
-if Wiimote.A\
-var.inclinacion1 = (MapRange(var.zRot, 0,26, 0,127))/127\
-elseif wiimote.One\
-var.inclinacion1 = 0 ;\
-endif\
-if ( Wiimote.A and ( var.pulsado == 0 ) ) then\
-   var.A1 = true\
-   var.pulsado = true\
-   wait 2 ms\
-elseif ( ( Wiimote.A == false ) and ( var.pulsado == 1) )\
-   var.A1 = true\
-   var.pulsado = false\
-   wait 2 ms\
-else\
-   var.A1 = false\
-endif\
-var.uno = wiimote.One\
-\}\
-/***************************************************/\
-// Modo 2 Efectos Principalmente\
-if var.modo == 2 \{\
-// Flechas\
-var.arriba1 = Wiimote.Up or Wiimote.Classic.Up\
-var.izquierda1 = Wiimote.Left or Wiimote.Classic.Left\
-var.derecha1 = Wiimote.Right or Wiimote.Classic.Right\
-var.abajo1 = Wiimote.Down or Wiimote.Classic.Down\
-\
-// Trigger para las escenas\
-var.accY1 = Wiimote.RelAccY\
-// Disparo de la escena\
-var.disparo1 = (Wiimote.B and (var.accY1 > 20 m per s per s))\
-\
-// Para los efectos del master\
-if Wiimote.A\
-var.rotacion2 = (MapRange(var.xRot, 26,-26, 0,127))/127\
-var.inclinacion2 = (MapRange(var.zRot, 0,26, 0,127))/127\
-elseif Wiimote.one\
-var.rotacion2 = 0 ;\
-var.inclinacion2 = 0 ;\
-endif\
-\
-\}\
-/***************************************************/\
-// Modo 3\
-if var.modo == 3 \{\
-\
-// Flechas\
-var.arriba1 = Wiimote.Up or Wiimote.Classic.Up\
-var.abajo1 = Wiimote.Down or Wiimote.Classic.Down\
-// Trigger para las escenas\
-var.accY1 = Wiimote.RelAccY\
-// Disparo de la escena\
-var.disparo1 = (Wiimote.One and (var.accY1 > 20 m per s per s))\
-\
-// Sample movirecord\
-// Mooooo\
-if wiimote.A then\
-var.rotacion31 = Wiimote.A * (EnsureMapRange(wiimote.gx, 1,-1, 16,26))/127\
-endif\
-// Viiie\
-if Wiimote.Left then\
-var.rotacion31 = Wiimote.Left * (MapRange(wiimote.gx, 1,-1, 57,65))/127\
-endif\
-// Reeeee\
-if Wiimote.Right then\
-var.rotacion31 = Wiimote.Right * (MapRange(wiimote.gx, 1,-1, 71,80))/127\
-endif\
-var.rotacion3 = smooth(var.rotacion31,2,0.01)\
-\
-var.hold = wiimote.B\
-var.volumenscratch = wiimote.One\
-\}\
-/***************************************************/\
-// Modo 4 (Samples)\
-if var.modo == 4 \{\
-\
-// Flechas\
-var.arriba1 = Wiimote.Up or Wiimote.Classic.Up\
-var.abajo1 = Wiimote.Down or Wiimote.Classic.Down\
-// Trigger para las escenas\
-var.accY1 = Wiimote.RelAccY\
-// Disparo de la escena\
-var.disparo1 = (Wiimote.B and (var.accY1 > 20 m per s per s))\
-\
-var.monitor4 = Wiimote.Home\
-var.velocidad = 100\
-var.accY41  = (Wiimote.A and (Wiimote.gx > 4))\
-var.accY42  = (Wiimote.A and (Wiimote.gy > 4))\
-var.accY43  = (Wiimote.right)\
-var.accY44  = (Wiimote.left)\
-\
-\}\
-/***************************************************/\
-/***************************************************/\
-// MIDI modo 1\
-midi.C0 = var.arriba1\
-midi.D0 = var.izquierda1\
-midi.E0 = var.derecha1\
-midi.F0 = var.abajo1\
-\
-midi.Control41 = var.disparo1\
-midi.G0 = var.A1\
-midi.control32 = var.rotacion1\
-midi.control33 = var.inclinacion1\
-midi.A0 = var.uno\
-// MIDI modo 2\
-midi.control34 = var.rotacion2\
-midi.control35 = var.inclinacion2\
-// MIDI modo 3\
-midi.control52 = var.rotacion3\
-midi.control63 = var.volumenscratch\
-midi.control73 = var.hold\
-// MIdI modo 4\
-midi.C1 = var.monitor4\
-midi.C5Velocity = var.velocidad * var.accY41\
-//midi.C5 = var.accY41\
-midi.D5Velocity = var.velocidad * var.accY42\
-// midi.D5 = var.accY42\
-midi.E5Velocity = var.velocidad * var.accY43\
-// midi.E5 = var.accY43\
-midi.F5Velocity = var.velocidad * var.accY44\
-// midi.F5 = var.accY44\
-\
-/******************************************************************************/\
-// 2007 MzW!! --> MzWii (GeekyMusic)\
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrt\brdrs\brdrw60\brdrcf3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvmgf \clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clmgf \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clmrg \clvertalc \clshdrawnil \clwWidth23780\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\f1\b\fs32 \cf0 Octave #
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 Note Numbers
-\b0 \cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvmrg \clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\cell
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 C
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 C#
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 D
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 D#
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 E
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 F
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 F#
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 G
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 G#
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 A
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 A#
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 B
-\b0 \cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 -1
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 0\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 1\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 2\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 3\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 4\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 5\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 6\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 7\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 8\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 9\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 10\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 11\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 0
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 12\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 13\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 14\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 15\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 16\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 17\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 18\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 19\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 20\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 21\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 22\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 23\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 1
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 24\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 25\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 26\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 27\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 28\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 29\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 30\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 31\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 32\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 33\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 34\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 35\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 2
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 36\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 37\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 38\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 39\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 40\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 41\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 42\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 43\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 44\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 45\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 46\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 47\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 3
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 48\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 49\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 50\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 51\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 52\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 53\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 54\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 55\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 56\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 57\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 58\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 59\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 4
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 60\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 61\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 62\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 63\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 64\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 65\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 66\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 67\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 68\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 69\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 70\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 71\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 5
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 72\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 73\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 74\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 75\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 76\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 77\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 78\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 79\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 80\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 81\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 82\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 83\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 6
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 84\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 85\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 86\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 87\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 88\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 89\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 90\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 91\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 92\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 93\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 94\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 95\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 7
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 96\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 97\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 98\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 99\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 100\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 101\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 102\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 103\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 104\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 105\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 106\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 107\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 8
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 108\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 109\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 110\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 111\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 112\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 113\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 114\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 115\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 116\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 117\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 118\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 119\cell \row
-
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trwWidth28360\trftsWidth3 \trbrdrl\brdrs\brdrw60\brdrcf3 \trbrdrb\brdrs\brdrw60\brdrcf3 \trbrdrr\brdrs\brdrw60\brdrcf3 
-\clvertalc \clshdrawnil \clwWidth4300\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx664
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1329
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx1993
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx2658
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3323
-\clvertalc \clshdrawnil \clwWidth1860\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx3987
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4652
-\clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5316
-\clmgf \clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx5981
-\clmrg \clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx6646
-\clmrg \clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7310
-\clmrg \clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx7975
-\clmrg \clvertalc \clshdrawnil \clwWidth1880\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrs\brdrw20\brdrcf3 \clbrdrl\brdrs\brdrw20\brdrcf3 \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrs\brdrw20\brdrcf3 \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\qc
-
-\b \cf0 9
-\b0 \cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 120\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 121\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 122\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 123\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 124\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 125\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 126\cell 
-\pard\intbl\itap1\pardeftab720\qc
-\cf0 127\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell 
-\pard\intbl\itap1\cell \lastrow\row
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-
-\f0\fs20 \cf2 \
-\
-}

@@ -1,1 +1,0 @@
- const unsigned char DBVMusicControllerVersionString[] __attribute__ ((used)) = "@(#)PROGRAM:MusicController  PROJECT:MusicController-1" "\n"; const double DBVMusicControllerVersionNumber __attribute__ ((used)) = (double)1.;
