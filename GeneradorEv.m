@@ -849,7 +849,7 @@
 						valor = 127;
 					if (! (valor == valorrotANT4)) {
 						//NSLog(@"Entra en mandar control");
-						[evts pushControl:34 value:valor channel:14];
+						[evts pushControl:35 value:valor channel:14];
 						valorrotANT4 = valor;
 					}
 					// Inclinacion
