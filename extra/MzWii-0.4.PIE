@@ -1,0 +1,296 @@
+// MzWii script 0.4
+// 2007-2008  MzW!! muzike+glovepie[at]gmail[dot]com
+// MzW!! (geekymusic)
+//
+// For more information go to: http://davebv.es/software
+// This file is free to share, use and modify but if you change it, please,
+//    publish the changes and let me know about it. Thank you.
+//
+//
+// Modo 1:
+//   - Navegación Escenas: Flechas arriba y abajo
+//   - Lanzamiento de escena: B + aceleracion Y
+//   - Beat repeat: A (pulsado: activo, no pulsado: desactivdo)
+//                  Rotar izda. drcha: Gride del repeat
+//                  Rotar hacia arriba: pitch
+// Modo 2:
+//   - Navegación Escenas: Flechas arriba y abajo
+//   - Lanzamiento de escena: B + aceleracion Y
+//   - Chain selector: Rotar izda. drcha: CutOff filtro
+//                  Rotar hacia arriba: pitch
+// Modo 3: Scratch mode.
+//   - Mover el mando adelante y atras para scratch
+// Modo 4: Sable Laser.
+//            (Asignación de distintas notas midi)
+//   - El sample se dispara cuando acelero el mando verticalmente y a la vez
+//        pulso alguno de los botones
+//          o Botón B
+//          o Botón A
+//          o Flecha arriba
+//          o Flecha abajo
+
+
+// Salida por Midi Yoke NT:7
+Midi.DeviceOut = 2 ;
+Midi.DefaultChannel = 15 ;
+
+// Elección de los modos con los botones (+) y (-)
+// Cada vez que se cambia de modo, el mando vibra y cambia la posición del LED:
+if ( wiimote.plus and wiimote.Minus == 0 ) then
+  if ( var.rmbl = false ) then
+    wiimote.Rumble = 1 ;
+    wait 1 ms ;
+    wiimote.Rumble = 0 ;
+    if (var.modo == 5) then
+     var.modo = 1 ;
+     wait 200 ms ;
+    else
+     var.modo++ ;
+     wait 200 ms ;
+    endif
+  endif
+  var.rmbl = true ;
+else
+  var.rmbl = false ;
+endif
+
+if ( wiimote.Minus and wiimote.Plus == 0 ) then
+  if (var.rmbl = false ) then
+    wiimote.Rumble = 1 ;
+    wait 1 ms ;
+    wiimote.Rumble = 0 ;
+    if (var.modo == 0) then
+     var.modo = 4 ;
+     wait 200 ms ;
+    else {
+     var.modo-- ;
+     wait 200 ms ;
+    endif
+  endif
+  var.rmbl = true ;
+else
+  var.rmbl = false ;
+endif
+
+if ( wiimote.Plus and wiimote.Minus)then
+  if ( var.rmbl = false )
+    wiimote.Rumble = 1 ;
+    wait 1 ms ;
+    wiimote.Rumble = 0 ;
+    var.modo = 0 ;
+    wait 600 ms ;
+  endif
+  var.rmbl = true ;
+else
+  var.rmbl = false ;
+endif
+
+// LEDs to indicate the active mode.
+if var.modo == 0 then
+   Wiimote.Leds = 0
+elsif var.modo == 1 then
+   Wiimote.Leds = 1
+elsif var.modo == 2 then
+   Wiimote.Leds = 2
+elsif var.modo == 3 then
+   Wiimote.Leds = 4
+elsif var.modo == 4 then
+   Wiimote.Leds = 8
+endif
+/******************************************************************************/
+// Debug Zone
+// debug = "X=" + var.xRot + "   Y=" + var.yRot + "   Z=" + var.zRot
+// debug = "Modo: " + var.modo + "Variable modo 4: " + var.accY42
+// debug = var.rotacion1 + " A: " + wiimote.A + " Activado: " + var.A1
+// debug = var.pulsado
+// debug = wiimote.RawAccZ
+// debug = "X=" + wiimote.gx + "   Y=" + wiimote.gy + "   Z=" + wiimote.gz
+// debug = "dot1x=" + wiimote.dot1x + "  dot1y=" + wiimote.dot1y  + "  Vis: " + wiimote.dot1vis
+// debug = "X: " + mouse.x + "  Y:" + mouse.y
+// debug = var.rotacion3 + " GX: " + wiimote.gx
+/******************************************************************************/
+/******************************************************************************/
+// Forces
+var.xOffset = -3
+var.yOffset = -22
+var.zOffset = -3
+
+var.xRot = Wiimote1.RawForceX + var.xOffset
+var.yRot = Wiimote1.RawForceY + var.yOffset
+var.zRot = Wiimote1.RawForceZ + var.zOffset
+// var.xRot = Wiimote1.gx
+// var.yRot = Wiimote1.gy
+// var.zRot = Wiimote1.gz
+
+// Suavizado del movimiento
+var.xRot = smooth(var.xRot,5,2)
+var.yRot = smooth(var.yRot,5,2)
+var.zRot = smooth(var.zRot,5,2)
+
+/******************************************************/
+/***********/
+//  MODOS //
+/**********/
+// Asignaciones Ableton cuando tenemos modo CERO.
+if ( var.modo == 0 ) {
+if Keyboard.A = true then
+ midi.Control32 = var.rotacion1
+endif
+if Keyboard.S = true then
+midi.Control33 = var.inclinacion1
+endif
+if Keyboard.D = true then
+midi.control34 = var.rotacion2
+endif
+if Keyboard.F = true then
+midi.Control35 = var.inclinacion2
+endif
+if Keyboard.G = true then
+midi.control52 = var.rotacion3
+endif
+}
+// Modo 1: Secuenciador + Beat Repeat
+if var.modo == 1 {
+// Flechas
+var.arriba1 = Wiimote.Up or Wiimote.Classic.Up
+var.izquierda1 = Wiimote.Left or Wiimote.Classic.Left
+var.derecha1 = Wiimote.Right or Wiimote.Classic.Right
+var.abajo1 = Wiimote.Down or Wiimote.Classic.Down
+
+// Trigger para las escenas
+var.accY1 = Wiimote.RelAccY
+// Disparo de la escena
+var.disparo1 = (Wiimote.B and (var.accY1 > 20 m per s per s))
+
+// Para el beat repeat del total
+if Wiimote.A
+var.rotacion1 = (MapRange(var.xRot, 26,-26, 0,127))/127
+else
+var.rotacion1 = var.rotacion1 ;
+endif
+if Wiimote.A
+var.inclinacion1 = (MapRange(var.zRot, 0,26, 0,127))/127
+elseif wiimote.One
+var.inclinacion1 = 0 ;
+endif
+if ( Wiimote.A and ( var.pulsado == 0 ) ) then
+   var.A1 = true
+   var.pulsado = true
+   wait 2 ms
+elseif ( ( Wiimote.A == false ) and ( var.pulsado == 1) )
+   var.A1 = true
+   var.pulsado = false
+   wait 2 ms
+else
+   var.A1 = false
+endif
+var.uno = wiimote.One
+}
+/***************************************************/
+// Modo 2 Efectos Principalmente
+if var.modo == 2 {
+// Flechas
+var.arriba1 = Wiimote.Up or Wiimote.Classic.Up
+var.izquierda1 = Wiimote.Left or Wiimote.Classic.Left
+var.derecha1 = Wiimote.Right or Wiimote.Classic.Right
+var.abajo1 = Wiimote.Down or Wiimote.Classic.Down
+
+// Trigger para las escenas
+var.accY1 = Wiimote.RelAccY
+// Disparo de la escena
+var.disparo1 = (Wiimote.B and (var.accY1 > 20 m per s per s))
+
+// Para los efectos del master
+if Wiimote.A
+var.rotacion2 = (MapRange(var.xRot, 26,-26, 0,127))/127
+var.inclinacion2 = (MapRange(var.zRot, 0,26, 0,127))/127
+elseif Wiimote.one
+var.rotacion2 = 0 ;
+var.inclinacion2 = 0 ;
+endif
+
+}
+/***************************************************/
+// Modo 3
+if var.modo == 3 {
+
+// Flechas
+var.arriba1 = Wiimote.Up or Wiimote.Classic.Up
+var.abajo1 = Wiimote.Down or Wiimote.Classic.Down
+// Trigger para las escenas
+var.accY1 = Wiimote.RelAccY
+// Disparo de la escena
+var.disparo1 = (Wiimote.One and (var.accY1 > 20 m per s per s))
+
+// Sample movirecord
+// Mooooo
+if wiimote.A then
+var.rotacion31 = Wiimote.A * (EnsureMapRange(wiimote.gx, 1,-1, 16,26))/127
+endif
+// Viiie
+if Wiimote.Left then
+var.rotacion31 = Wiimote.Left * (MapRange(wiimote.gx, 1,-1, 57,65))/127
+endif
+// Reeeee
+if Wiimote.Right then
+var.rotacion31 = Wiimote.Right * (MapRange(wiimote.gx, 1,-1, 71,80))/127
+endif
+var.rotacion3 = smooth(var.rotacion31,2,0.01)
+
+var.hold = wiimote.B
+var.volumenscratch = wiimote.One
+}
+/***************************************************/
+// Modo 4 (Samples)
+if var.modo == 4 {
+
+// Flechas
+var.arriba1 = Wiimote.Up or Wiimote.Classic.Up
+var.abajo1 = Wiimote.Down or Wiimote.Classic.Down
+// Trigger para las escenas
+var.accY1 = Wiimote.RelAccY
+// Disparo de la escena
+var.disparo1 = (Wiimote.B and (var.accY1 > 20 m per s per s))
+
+var.monitor4 = Wiimote.Home
+var.velocidad = 100
+var.accY41  = (Wiimote.A and (Wiimote.gx > 4))
+var.accY42  = (Wiimote.A and (Wiimote.gy > 4))
+var.accY43  = (Wiimote.right)
+var.accY44  = (Wiimote.left)
+
+}
+/***************************************************/
+/***************************************************/
+// MIDI modo 1
+midi.C0 = var.arriba1
+midi.D0 = var.izquierda1
+midi.E0 = var.derecha1
+midi.F0 = var.abajo1
+
+midi.Control41 = var.disparo1
+midi.G0 = var.A1
+midi.control32 = var.rotacion1
+midi.control33 = var.inclinacion1
+midi.A0 = var.uno
+// MIDI modo 2
+midi.control34 = var.rotacion2
+midi.control35 = var.inclinacion2
+// MIDI modo 3
+midi.control52 = var.rotacion3
+midi.control63 = var.volumenscratch
+midi.control73 = var.hold
+// MIdI modo 4
+midi.C1 = var.monitor4
+midi.C5Velocity = var.velocidad * var.accY41
+//midi.C5 = var.accY41
+midi.D5Velocity = var.velocidad * var.accY42
+// midi.D5 = var.accY42
+midi.E5Velocity = var.velocidad * var.accY43
+// midi.E5 = var.accY43
+midi.F5Velocity = var.velocidad * var.accY44
+// midi.F5 = var.accY44
+
+/******************************************************************************/
+// 2007 MzW!! --> MzWii (GeekyMusic)
+

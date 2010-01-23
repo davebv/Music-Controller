@@ -1,0 +1,33 @@
+
+// wiimote to SuperCollider by Thor Magnusson - www.ixi-audio.net
+// SuperCollider listens to port 57120
+
+// first load the synthdef
+SynthDef(\wiisynth, {arg freq=440, filterfreq=3000;
+  var signal;
+    signal = LPF.ar(Saw.ar(Lag.kr(freq,0.15)), filterfreq+300);
+      signal = FreeVerb.ar(signal);
+      Out.ar(0, signal!2)
+}).load(s);
+
+
+// then this little patch
+(
+x.free;
+y.remove;
+z.remove;
+
+x = Synth(\wiisynth);
+
+y = OSCresponderNode(nil, '/wiimote/all/Acc/Pitch', {arg t, r, msg;
+  msg.postln;
+    x.set('freq', (msg[1]-100).abs*4) 
+}).add;
+
+z= OSCresponderNode(nil, '/wiimote/all/Acc/Roll', {arg t, r, msg;
+  msg.postln;
+    x.set('filterfreq', (msg[1]-150).abs*15)  
+}).add;
+)
+
+
