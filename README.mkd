@@ -1,0 +1,18 @@
+Music Controller, Wiimote + MIDI + OSC made simple for OSX
+==========================================================
+
+This is a simple program to send midi and osc values to a midi ports or osc clients.
+
+It is based on darwiinremote, (WiiRemote.framework), VVOSC.framework. 
+
+(TODO) Complete documentation!
+
+Extras
+-------
+
+In the "extra" folder, you will find patches for supercollider, puredata and glovepie
+
+* PlotOSC.pd: puredata patch to test the OSC from musiccontroller.
+* supercollider.txt: patch from Thor Magnusson - www.ixi-audio.net, to talk to supercollider.
+* MzWii-0.4.PIE: a [glovepie](http://carl.kenner.googlepages.com/glovepie) script, which funcionality is similar to the
+musiccontroller for osx. Windows only.
