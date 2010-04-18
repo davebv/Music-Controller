@@ -67,10 +67,10 @@
 	unsigned short tmpAccX, tmpAccY, tmpAccZ;
 	
 	//debug
-	IBOutlet NSTextView *textoPruebas;
-	//IBOutlet NSTextField *textaccx;
-	//IBOutlet NSTextField *textaccy;
-	//IBOutlet NSTextField *textaccz;
+	// IBOutlet NSTextView *textoPruebas;
+	// IBOutlet NSTextField *textaccx;
+	// IBOutlet NSTextField *textaccy;
+	// IBOutlet NSTextField *textaccz;
 	
 	// Logic
 	IBOutlet NSTextField *textModo;

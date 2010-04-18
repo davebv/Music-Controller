@@ -189,12 +189,6 @@
                     tipoBoton:type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado A"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado A"];
-			}
 			break;
 		case WiiRemoteBButton:
 			[_WiiControls setBButton:isPressed];
@@ -203,12 +197,6 @@
                     tipoBoton: type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado B"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado B"];
-			}
 			break;
 		case WiiRemoteOneButton:
 			[_WiiControls setOneButton:isPressed];
@@ -217,12 +205,6 @@
                     tipoBoton:type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado 1"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado 1"];
-			}
 			break;
 		case WiiRemoteTwoButton:
 			[_WiiControls setTwoButton:isPressed];
@@ -231,12 +213,6 @@
                     tipoBoton:type
                     mandarOSC:OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado 2"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado 2"];
-			}
 			break;
 		case WiiRemoteMinusButton:
 			[_WiiControls setMinusButton:isPressed];
@@ -248,12 +224,6 @@
                     tipoBoton:type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed == YES){
-				[textoPruebas setString:@"Se ha presionado -"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado -"];
-			}
 			break;
 		case WiiRemoteHomeButton:
 			[_WiiControls setHomeButton:isPressed];
@@ -262,12 +232,6 @@
 						  tipoBoton:type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado home"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado home"];
-			}
 			break;
 		case WiiRemotePlusButton: 
 			[_WiiControls setPlusButton:isPressed];
@@ -279,12 +243,6 @@
                     tipoBoton:type 
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado +"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado +"];
-			}
 			break;
 		case WiiRemoteUpButton:
 			[_WiiControls setUpButton:isPressed];
@@ -292,12 +250,6 @@
                     mandarloA:_midiEvts
                     tipoBoton:type
                     mandarOSC: OSCobjeto];
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado Up"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado Up"];
-			}
 			break;
 		case WiiRemoteDownButton:
 			[_WiiControls setDownButton:isPressed];
@@ -306,12 +258,6 @@
                     tipoBoton:type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado down"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado down"];
-			}
 			break;
 		case WiiRemoteLeftButton:
 			[_WiiControls setLeftButton:isPressed];
@@ -320,12 +266,6 @@
                     tipoBoton:type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado left"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado left"];
-			}
 			break;
 		case WiiRemoteRightButton:
 			[_WiiControls setRightButton:isPressed];
@@ -334,12 +274,6 @@
                     tipoBoton:type
                     mandarOSC: OSCobjeto];
 
-			if (isPressed){
-				[textoPruebas setString:@"Se ha presionado derecha"];
-			}
-			else {
-				[textoPruebas setString:@"Se ha soltado derecha"];
-			}
 			break;			
 		default:
 			break;
@@ -493,15 +427,15 @@
 // Link to my web
 -(IBAction) abrirEnlace:(id)sender{
 	if ([sender tag] == 0){
-		NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://davebv.es"]] ;
+		NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://davebv.com"]] ;
 		[[NSWorkspace sharedWorkspace] openURL:url];
 	}
 	if ([sender tag] == 1){
-		NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://davebv.es/software/music-controller"]];
+		NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://www.davebv.com/music-controller-midi-and-osc-wiimote"]];
 		[[NSWorkspace sharedWorkspace] openURL:url];
 	}
 	if ([sender tag] == 2){
-		NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://davebv.es/"]];
+		NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"http://davebv.com"]];
 		[[NSWorkspace sharedWorkspace] openURL:url];
 	}
 }

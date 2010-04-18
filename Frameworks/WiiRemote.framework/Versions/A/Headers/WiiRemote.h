@@ -45,6 +45,13 @@ typedef struct {
 	unsigned short x_min, x_max, x_center, y_min, y_max, y_center; 
 } WiiJoyStickCalibData;
 
+typedef struct {
+	float tr, br, tl, bl;
+} WiiBalanceBoardGrid;
+
+typedef struct {
+	WiiBalanceBoardGrid kg0, kg17, kg34;
+} WiiBalanceBoardCalibData;
 
 typedef enum {
 	WiiRemoteAButton,
@@ -83,15 +90,21 @@ unsigned char mii_data_buf[WIIMOTE_MII_DATA_BYTES_PER_SLOT + 16];
 unsigned short mii_data_offset;
 
 typedef enum {
+	WiiExpUknown,
 	WiiExpNotAttached,
 	WiiNunchuk,
-	WiiClassicController
+	WiiClassicController,
+	WiiBalanceBoard
 }  WiiExpansionPortType;
 
 typedef enum {
 	WiiRemoteAccelerationSensor,
 	WiiNunchukAccelerationSensor
 } WiiAccelerationSensorType;
+
+typedef enum {
+	WiiBalanceBoardPressureSensor
+} WiiPressureSensorType;
 
 
 typedef enum {
@@ -109,6 +122,7 @@ typedef enum {
 	BOOL _opened;
 	BOOL _shouldUpdateReportMode;
 	BOOL _shouldReadExpansionCalibration;
+	BOOL _shouldSetInitialConfiguration;
 	BOOL _isMotionSensorEnabled;
 	BOOL _isIRSensorEnabled;
 	BOOL _isVibrationEnabled;
@@ -132,6 +146,7 @@ typedef enum {
 	WiiExpansionPortType expType;
 	WiiAccCalibData wiiCalibData, nunchukCalibData;
 	WiiJoyStickCalibData nunchukJoyStickCalibData;
+	WiiBalanceBoardCalibData balanceBoardCalibData;
 	WiiIRModeType wiiIRMode;
 	IRData	irData[4];
 	double _batteryLevel;
@@ -164,6 +179,13 @@ typedef enum {
 	unsigned short cStickY2;
 	unsigned short cAnalogL;
 	unsigned short cAnalogR;
+	
+	/* balance board raw values */
+	WiiBalanceBoardGrid bPressure;
+	
+	/* balance board encoded values */
+	WiiBalanceBoardGrid bKg;
+	
 } 
 - (NSString*) address;
 - (void) setDelegate:(id) delegate;
@@ -185,6 +207,8 @@ typedef enum {
 
 - (void) updateReportMode;
 - (IOReturn) doUpdateReportMode;
+
+- (void) setInitialConfiguration;
 - (void) setIRSensorEnabled:(BOOL) enabled;
 - (void) setForceFeedbackEnabled:(BOOL) enabled;
 - (void) setMotionSensorEnabled:(BOOL) enabled;
@@ -210,8 +234,11 @@ typedef enum {
 - (void) accelerationChanged:(WiiAccelerationSensorType) type accX:(unsigned short) accX accY:(unsigned short) accY accZ:(unsigned short) accZ;
 - (void) joyStickChanged:(WiiJoyStickType) type tiltX:(unsigned short) tiltX tiltY:(unsigned short) tiltY;
 - (void) analogButtonChanged:(WiiButtonType) type amount:(unsigned short) press;
+- (void) pressureChanged:(WiiPressureSensorType) type pressureTR:(float) bPressureTR pressureBR:(float) bPressureBR 
+			  pressureTL:(float) bPressureTL pressureBL:(float) bPressureBL;
 - (void) batteryLevelChanged:(double) level;
 - (void) wiiRemoteDisconnected:(IOBluetoothDevice*) device;
 - (void) gotMiiData: (Mii*) mii_data_buf at: (int) slot;
-
+- (void) rawPressureChanged:(WiiBalanceBoardGrid) bbData;
+- (void) allPressureChanged:(WiiPressureSensorType) type bbData:(WiiBalanceBoardGrid) bbData bbDataInKg:(WiiBalanceBoardGrid) bbDataInKg;
 @end

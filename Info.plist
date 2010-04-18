@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>icons2</string>
 	<key>CFBundleIdentifier</key>
-	<string>es.davebv.${PRODUCT_NAME:identifier}</string>
+	<string>com.davebv.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.8.4</string>
+	<string>0.9.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -26,11 +26,5 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUEnableAutomaticChecks</key>
-	<string>YES</string>
-	<key>SUFeedURL</key>
-	<string>http://musiccontroller.googlecode.com/svn/trunk/MusicController/appcast.xml</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
 </dict>
 </plist>

@@ -29,20 +29,24 @@
 		631610AC0F0A386D00D4655D /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 631610AB0F0A386D00D4655D /* appcast.xml */; };
 		631611DF0F0A8BC400D4655D /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 631611DE0F0A8BC400D4655D /* LICENSE.txt */; };
 		631611E80F0A94B900D4655D /* icons2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 631611E70F0A94B900D4655D /* icons2.icns */; };
-		6351A9E0106E2799004E42FB /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6352DB1A106E1C81008001F9 /* Sparkle.framework */; };
-		6351A9E1106E2799004E42FB /* VVOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6352DB1B106E1C81008001F9 /* VVOSC.framework */; };
 		6351A9E2106E2799004E42FB /* WiiRemote.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6352DB1C106E1C81008001F9 /* WiiRemote.framework */; };
-		6352DB1D106E1C81008001F9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1A106E1C81008001F9 /* Sparkle.framework */; };
-		6352DB1E106E1C81008001F9 /* VVOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1B106E1C81008001F9 /* VVOSC.framework */; };
 		6352DB1F106E1C81008001F9 /* WiiRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6352DB1C106E1C81008001F9 /* WiiRemote.framework */; };
+		638A68E9117A2DC4000B84CB /* OSCEventClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A68E8117A2DC4000B84CB /* OSCEventClass.m */; };
+		638A68EE117A2DD3000B84CB /* MidiDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A68EC117A2DD3000B84CB /* MidiDevice.m */; };
+		638A68EF117A2DD3000B84CB /* MidiEventOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A68ED117A2DD3000B84CB /* MidiEventOutput.m */; };
 		639B073A0E1000F900EE376F /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 639B07390E1000F900EE376F /* icons.icns */; };
-		639CE73D0E0BAB6D00A20F57 /* MidiDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE73C0E0BAB6D00A20F57 /* MidiDevice.m */; };
 		639CE7400E0BAB8500A20F57 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE73F0E0BAB8500A20F57 /* AppController.m */; };
 		639CE7CD0E0BBD8A00A20F57 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */; };
 		63B1EECB0E0D6CBE003691CA /* WiiControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1EECA0E0D6CBE003691CA /* WiiControls.m */; };
-		63B911F90E0E53DD00CE2779 /* MidiEventOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B911F80E0E53DD00CE2779 /* MidiEventOutput.m */; };
 		63B912220E0E57FD00CE2779 /* Documentation.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63B912210E0E57FD00CE2779 /* Documentation.rtf */; };
-		63B94C8C0F0624F200C72B50 /* OSCEventClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B94C8B0F0624F200C72B50 /* OSCEventClass.m */; };
+		63D0B7C9117B385800C100B2 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */; };
+		63D0B7CC117B387400C100B2 /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */; };
+		63E4C110117A0FBE00BBB64F /* VVBasics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E4C10D117A0FBE00BBB64F /* VVBasics.framework */; };
+		63E4C111117A0FBE00BBB64F /* VVMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */; };
+		63E4C112117A0FBE00BBB64F /* VVOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E4C10F117A0FBE00BBB64F /* VVOSC.framework */; };
+		63E4C13F117A0FCE00BBB64F /* VVBasics.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63E4C10D117A0FBE00BBB64F /* VVBasics.framework */; };
+		63E4C140117A0FCE00BBB64F /* VVMIDI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */; };
+		63E4C141117A0FCE00BBB64F /* VVOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63E4C10F117A0FBE00BBB64F /* VVOSC.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -65,8 +69,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6351A9E0106E2799004E42FB /* Sparkle.framework in CopyFiles */,
-				6351A9E1106E2799004E42FB /* VVOSC.framework in CopyFiles */,
+				63D0B7CC117B387400C100B2 /* BWToolkitFramework.framework in CopyFiles */,
+				63E4C13F117A0FCE00BBB64F /* VVBasics.framework in CopyFiles */,
+				63E4C140117A0FCE00BBB64F /* VVMIDI.framework in CopyFiles */,
+				63E4C141117A0FCE00BBB64F /* VVOSC.framework in CopyFiles */,
 				6351A9E2106E2799004E42FB /* WiiRemote.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,22 +94,24 @@
 		631610AB0F0A386D00D4655D /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = SOURCE_ROOT; };
 		631611DE0F0A8BC400D4655D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		631611E70F0A94B900D4655D /* icons2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons2.icns; sourceTree = SOURCE_ROOT; };
-		6352DB1A106E1C81008001F9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
-		6352DB1B106E1C81008001F9 /* VVOSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVOSC.framework; path = Frameworks/VVOSC.framework; sourceTree = SOURCE_ROOT; };
 		6352DB1C106E1C81008001F9 /* WiiRemote.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WiiRemote.framework; path = Frameworks/WiiRemote.framework; sourceTree = SOURCE_ROOT; };
+		638A68E7117A2DC4000B84CB /* OSCEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSCEventClass.h; path = osc/OSCEventClass.h; sourceTree = "<group>"; };
+		638A68E8117A2DC4000B84CB /* OSCEventClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OSCEventClass.m; path = osc/OSCEventClass.m; sourceTree = "<group>"; };
+		638A68EA117A2DD3000B84CB /* MidiDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiDevice.h; path = midi/MidiDevice.h; sourceTree = "<group>"; };
+		638A68EB117A2DD3000B84CB /* MidiEventOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiEventOutput.h; path = midi/MidiEventOutput.h; sourceTree = "<group>"; };
+		638A68EC117A2DD3000B84CB /* MidiDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MidiDevice.m; path = midi/MidiDevice.m; sourceTree = "<group>"; };
+		638A68ED117A2DD3000B84CB /* MidiEventOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MidiEventOutput.m; path = midi/MidiEventOutput.m; sourceTree = "<group>"; };
 		639B07390E1000F900EE376F /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
-		639CE73B0E0BAB6D00A20F57 /* MidiDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiDevice.h; sourceTree = "<group>"; };
-		639CE73C0E0BAB6D00A20F57 /* MidiDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiDevice.m; sourceTree = "<group>"; };
 		639CE73E0E0BAB8500A20F57 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		639CE73F0E0BAB8500A20F57 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		63B1EEC90E0D6CBE003691CA /* WiiControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiControls.h; sourceTree = "<group>"; };
 		63B1EECA0E0D6CBE003691CA /* WiiControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiiControls.m; sourceTree = "<group>"; };
-		63B911F70E0E53DD00CE2779 /* MidiEventOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiEventOutput.h; sourceTree = "<group>"; };
-		63B911F80E0E53DD00CE2779 /* MidiEventOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiEventOutput.m; sourceTree = "<group>"; };
 		63B912210E0E57FD00CE2779 /* Documentation.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Documentation.rtf; sourceTree = "<group>"; };
-		63B94C8A0F0624F200C72B50 /* OSCEventClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCEventClass.h; sourceTree = "<group>"; };
-		63B94C8B0F0624F200C72B50 /* OSCEventClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCEventClass.m; sourceTree = "<group>"; };
+		63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = /Users/david/src/BWToolkit/BWToolkitFramework.framework; sourceTree = "<absolute>"; };
+		63E4C10D117A0FBE00BBB64F /* VVBasics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVBasics.framework; path = Frameworks/VVBasics.framework; sourceTree = "<group>"; };
+		63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVMIDI.framework; path = Frameworks/VVMIDI.framework; sourceTree = "<group>"; };
+		63E4C10F117A0FBE00BBB64F /* VVOSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVOSC.framework; path = Frameworks/VVOSC.framework; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MusicController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -115,9 +123,11 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				639CE7CD0E0BBD8A00A20F57 /* CoreMIDI.framework in Frameworks */,
-				6352DB1D106E1C81008001F9 /* Sparkle.framework in Frameworks */,
-				6352DB1E106E1C81008001F9 /* VVOSC.framework in Frameworks */,
 				6352DB1F106E1C81008001F9 /* WiiRemote.framework in Frameworks */,
+				63E4C110117A0FBE00BBB64F /* VVBasics.framework in Frameworks */,
+				63E4C111117A0FBE00BBB64F /* VVMIDI.framework in Frameworks */,
+				63E4C112117A0FBE00BBB64F /* VVOSC.framework in Frameworks */,
+				63D0B7C9117B385800C100B2 /* BWToolkitFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,18 +137,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				63B911F70E0E53DD00CE2779 /* MidiEventOutput.h */,
-				63B911F80E0E53DD00CE2779 /* MidiEventOutput.m */,
-				639CE73B0E0BAB6D00A20F57 /* MidiDevice.h */,
-				639CE73C0E0BAB6D00A20F57 /* MidiDevice.m */,
+				63E4C164117A202A00BBB64F /* osc */,
+				63E4C163117A202400BBB64F /* midi */,
 				639CE73E0E0BAB8500A20F57 /* AppController.h */,
 				639CE73F0E0BAB8500A20F57 /* AppController.m */,
 				631191F90E0C0BE9004565F9 /* GeneradorEv.h */,
 				631191FA0E0C0BE9004565F9 /* GeneradorEv.m */,
 				63B1EEC90E0D6CBE003691CA /* WiiControls.h */,
 				63B1EECA0E0D6CBE003691CA /* WiiControls.m */,
-				63B94C8A0F0624F200C72B50 /* OSCEventClass.h */,
-				63B94C8B0F0624F200C72B50 /* OSCEventClass.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -146,11 +152,13 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6352DB1A106E1C81008001F9 /* Sparkle.framework */,
-				6352DB1B106E1C81008001F9 /* VVOSC.framework */,
+				63E4C10D117A0FBE00BBB64F /* VVBasics.framework */,
+				63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */,
+				63E4C10F117A0FBE00BBB64F /* VVOSC.framework */,
 				6352DB1C106E1C81008001F9 /* WiiRemote.framework */,
 				639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -225,6 +233,26 @@
 				63B912210E0E57FD00CE2779 /* Documentation.rtf */,
 			);
 			name = Docs;
+			sourceTree = "<group>";
+		};
+		63E4C163117A202400BBB64F /* midi */ = {
+			isa = PBXGroup;
+			children = (
+				638A68EA117A2DD3000B84CB /* MidiDevice.h */,
+				638A68EB117A2DD3000B84CB /* MidiEventOutput.h */,
+				638A68EC117A2DD3000B84CB /* MidiDevice.m */,
+				638A68ED117A2DD3000B84CB /* MidiEventOutput.m */,
+			);
+			name = midi;
+			sourceTree = "<group>";
+		};
+		63E4C164117A202A00BBB64F /* osc */ = {
+			isa = PBXGroup;
+			children = (
+				638A68E7117A2DC4000B84CB /* OSCEventClass.h */,
+				638A68E8117A2DC4000B84CB /* OSCEventClass.m */,
+			);
+			name = osc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,12 +351,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
-				639CE73D0E0BAB6D00A20F57 /* MidiDevice.m in Sources */,
 				639CE7400E0BAB8500A20F57 /* AppController.m in Sources */,
 				631191FB0E0C0BE9004565F9 /* GeneradorEv.m in Sources */,
 				63B1EECB0E0D6CBE003691CA /* WiiControls.m in Sources */,
-				63B911F90E0E53DD00CE2779 /* MidiEventOutput.m in Sources */,
-				63B94C8C0F0624F200C72B50 /* OSCEventClass.m in Sources */,
+				638A68E9117A2DC4000B84CB /* OSCEventClass.m in Sources */,
+				638A68EE117A2DD3000B84CB /* MidiDevice.m in Sources */,
+				638A68EF117A2DD3000B84CB /* MidiEventOutput.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +423,7 @@
 					"\"$(SRCROOT)/../vvosc/build/Release\"",
 					"\"$(SRCROOT)/../Sparkle 1.5b6\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../BWToolkit\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -422,6 +451,7 @@
 					"\"$(SRCROOT)/../vvosc/build/Release\"",
 					"\"$(SRCROOT)/../Sparkle 1.5b6\"",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../BWToolkit\"",
 				);
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;

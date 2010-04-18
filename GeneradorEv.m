@@ -53,7 +53,7 @@
 		 isPressed:(BOOL)apretado
 {
   
-  if (modo == 5)
+  if (modo == ONEONONE_MODE)
     return;
 
 	if (apretado == FALSE)
@@ -85,25 +85,25 @@
 		}
 	}
 	switch (modo) {
-		case 1: [self setModoSTR:[NSString stringWithFormat:@"Beats"]];
+		case BEATS_MODE: [self setModoSTR:[NSString stringWithFormat:@"Beats"]];
 			[wiimote setLEDEnabled1:YES
 					   enabled2:NO
 					   enabled3:NO
 					   enabled4:NO];
 			break;
-		case 2: [self setModoSTR:[NSString stringWithFormat:@"Filters"]];
+		case FILTERS_MODE: [self setModoSTR:[NSString stringWithFormat:@"Filters"]];
 			[wiimote setLEDEnabled1:NO
 					   enabled2:YES
 					   enabled3:NO
 					   enabled4:NO];
 			break;
-		case 3: [self setModoSTR:[NSString stringWithFormat:@"Scratch"]];
+		case SCRATCH_MODE: [self setModoSTR:[NSString stringWithFormat:@"Scratch"]];
 			[wiimote setLEDEnabled1:NO
 					   enabled2:NO
 					   enabled3:YES
 					   enabled4:NO];
 			break;
-		case 4: [self setModoSTR:[NSString stringWithFormat:@"Sable Laser"]];
+		case LASER_MODE: [self setModoSTR:[NSString stringWithFormat:@"Sable Laser"]];
 			[wiimote setLEDEnabled1:NO
 					   enabled2:NO
 					   enabled3:NO
@@ -114,44 +114,44 @@
 	}
 }
 
--(void)cambiaModo:(unsigned short)manualMode
+-(void)cambiaModo:(MODO_FUNC)manualMode
        conWiimote:(WiiRemote *)wiimote
 {
   modo = manualMode ;
   
 	switch (modo) {
-    case 0:
+    case LEARN_MODE:
       [self setModoSTR:[NSString stringWithFormat:@"Learn Mode"]];
       [wiimote setLEDEnabled1:YES
                      enabled2:NO
                      enabled3:NO
                      enabled4:YES];
       break;
-		case 1: [self setModoSTR:[NSString stringWithFormat:@"Beats"]];
+		case BEATS_MODE: [self setModoSTR:[NSString stringWithFormat:@"Beats"]];
 			[wiimote setLEDEnabled1:YES
                      enabled2:NO
                      enabled3:NO
                      enabled4:NO];
 			break;
-		case 2: [self setModoSTR:[NSString stringWithFormat:@"Filters"]];
+		case FILTERS_MODE: [self setModoSTR:[NSString stringWithFormat:@"Filters"]];
 			[wiimote setLEDEnabled1:NO
                      enabled2:YES
                      enabled3:NO
                      enabled4:NO];
 			break;
-		case 3: [self setModoSTR:[NSString stringWithFormat:@"Scratch"]];
+		case SCRATCH_MODE: [self setModoSTR:[NSString stringWithFormat:@"Scratch"]];
 			[wiimote setLEDEnabled1:NO
                      enabled2:NO
                      enabled3:YES
                      enabled4:NO];
 			break;
-		case 4: [self setModoSTR:[NSString stringWithFormat:@"Sable Laser"]];
+		case LASER_MODE: [self setModoSTR:[NSString stringWithFormat:@"Sable Laser"]];
 			[wiimote setLEDEnabled1:NO
                      enabled2:NO
                      enabled3:NO
                      enabled4:YES];
 			break;
-		case 5: [self setModoSTR:[NSString stringWithFormat:@"1 on 1"]];
+		case ONEONONE_MODE: [self setModoSTR:[NSString stringWithFormat:@"1 on 1"]];
 			[wiimote setLEDEnabled1:YES
                      enabled2:YES
                      enabled3:YES

@@ -15,11 +15,21 @@
 
 #define LONG_BUF 10
 
+typedef enum MODO_FUNC {
+  LEARN_MODE = 0,
+  BEATS_MODE = 1,
+  FILTERS_MODE = 2,
+  SCRATCH_MODE = 3,
+  LASER_MODE = 4,
+  ONEONONE_MODE = 5
+} MODO_FUNC ;
+  
+
 @interface GeneradorEv : NSObject {
 	// Modo en el que se encuentra
 	NSString *modoSTR ;
-	unsigned short modo ;
-  unsigned short modo_ant ;
+	MODO_FUNC modo ;
+  MODO_FUNC modo_ant ;
 	
 	int contador ;
 	// Valores del estado anterior
@@ -49,8 +59,8 @@
 }
 
 @property (readwrite,assign) NSString *modoSTR;
-@property (readwrite,assign) unsigned short modo;
-@property (readwrite,assign) unsigned short modo_ant;
+@property (readwrite,assign) MODO_FUNC modo;
+@property (readwrite,assign) MODO_FUNC modo_ant;
 //@property (readwrite,assign) double acelex;
 @property (readwrite,assign) double mediaacelx;
 //@property (readwrite,assign) double aceley;
@@ -66,7 +76,7 @@
        conWiimote:(WiiRemote *)wiimote
         isPressed:(BOOL)apretado;
 
--(void)cambiaModo:(unsigned short)manualMode
+-(void)cambiaModo:(MODO_FUNC) manualMode
        conWiimote:(WiiRemote *)wiimote;
 
 -(void) manipular: (WiiControls *)_wiicontrols 

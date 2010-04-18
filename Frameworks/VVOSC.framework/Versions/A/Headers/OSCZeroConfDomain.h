@@ -1,17 +1,12 @@
-//
-//  OSCZeroConfDomain.h
-//  VVOSC
-//
-//  Created by bagheera on 12/9/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
 
 #if IPHONE
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
 #endif
-
+//#import <VVBasics/VVBasics.h>
+#import <VVBasics/MutLockArray.h>
+#import <VVBasics/VVBasicMacros.h>
 #import <pthread.h>
 #import <sys/socket.h>
 #include <arpa/inet.h>
@@ -23,8 +18,7 @@
 	NSString				*domainString;
 	NSNetServiceBrowser		*serviceBrowser;
 	
-	NSMutableArray			*servicesArray;
-	pthread_rwlock_t		servicesLock;
+	MutLockArray			*servicesArray;
 	
 	id						domainManager;
 }

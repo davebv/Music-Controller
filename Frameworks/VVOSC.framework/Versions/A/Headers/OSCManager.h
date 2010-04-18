@@ -1,144 +1,107 @@
-//
-//  OSCManager.h
-//  OSC
-//
-//  Created by bagheera on 9/20/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
 
 #if IPHONE
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
 #endif
-
+#import "OSCAddressSpace.h"
 #import "OSCZeroConfManager.h"
 #import "OSCInPort.h"
 #import "OSCOutPort.h"
-#import <pthread.h>
 
-/*
-	TOP-LEVEL OVERVIEW
-	
-	this osc manager class is all you need to add to your app.  it has methods for
-	adding and removing ports.  you can have as many osc managers as you like, but
-	you should really only need one instance.
-	
-	input ports have a delegate- delegate methods are called as the port receives data.
-	it's important to note that the delegate methods must be thread-safe: each input
-	port is running on its own (non-main) thread.
-	
-	data is sent via the output ports (convenience methods for doing this are built
-	into the osc manager).
-	
-	
-	
-	
-			GENERAL OSC STRUCTURE AND OVERVIEW
-	
-	this framework was written from the OSC spec found here:
-	http://opensoundcontrol.org/spec-1_0
-	
-	- an OSC packet is the basic unit of transmitting OSC data.
-	- an OSC packet consists of:
-		- contents- contiguous block of binary data (either a bundle or a message), and then the
-		- size- number of 8-bit bytes that comprise 'contents'- ALWAYS multiple of 4!
-	- an OSC message consists of:
-		- an OSC address pattern (starting with '/'), followed by
-		- an OSC type tag string, followed by
-		- zero or more 'OSC arguments'
-	- an OSC bundle consists of:
-		- the OSC-string "#bundle", followed by
-		- an OSC  time tag, followed by
-		- zero or more 'OSC bundle elements'
-	- an OSC bundle element consists of:
-		- 'size' (int32)- number of 8-bit bytes in the contents- ALWAYS multiple of 4!
-		- 'contents'- either another OSC bundle, or an OSC message
-	
-	
-	
-	
-			PORTS- SENDING AND RECEIVING UDP/TCP DATA
-	
-	some basic information, gleaned from:
-	http://beej.us/guide/bgnet/output/html/multipage/index.html
-	
-	struct sockaddr	{
-		unsigned short		sa_family;		//	address family, AF_xxx
-		char				sa_data[14];	//	14 bytes of protocol address
-	}
-	struct sockaddr_in	{
-		short int			sin_family;		//	address family
-		unsigned short int	sin_port;		//	port number
-		struct in_addr		sin_addr;		//	internet address
-		unsigned char		sin_zero[8];	//	exists so sockaddr_in has same length as sockaddr
-	}
-	
-	recv(int sockfd, void *buf, int len, unsigned int flags);
-		- sockfd is the socket descriptor to read from
-		- buf is the buffer to read the information into
-		- len is the max length of the buffer
-		- flags can be set to 0
-	recvfrom(int sockfd, void *buf, int len, unsigned int flags, struct sockaddr *from, int *fromlen);
-		- from is a pointer to a local struct sockaddr that will be filled with the IP & port of the originating machine
-		- fromlen is a pointer to a local int that should be initialized to a sizeof(struct sockaddr)- contains length of address actually stored in from on return
-		...as well as the 4 params listed above in recv()
-	
-	int select(int numfds, fd_set *readrds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+
+
+
+///	Main VVOSC class- manages in & out port creation, zero configuration networking (bonjour/zeroconf)
+/*!
+The OSCManager should be the "main" class that you're working with: it passes any received OSC data to its delegate (your app), creates/deletes inputs and outputs, automatically creates outputs for any osc destinations detected via bonjour, handles distribution of all received OSC messages, and does other manager-ish things.  You should only need one instance of OSCManager in your application.  One of your objects should be OSCManager's delegate (see the "OSCDelegateProtocol" below) so you may receive OSC data.
+
+Incoming OSC data is initially received by an OSCInPort; fundamentally, in ports are running a loop which checks a socket for data received since the last loop.  By default, the OSCInPort's delegate is the OSCManager which created it.  Every time the loop runs, it passes the received data off to its delegate (the manager) as the raw address/value pairs in the order they're received.  When the OSCManager receives data from its in port it immediately passes the received data to its delegate, which should respond to one of the following methods (referred to as the 'OSCDelegateProtocol'):
+
+\htmlonly
+<div style="width: 100%; border: 1px #000 solid; background-color: #F0F0F0; padding: 5px; margin: 5px; color: black; font-family: Courier; font-size: 10pt; font-style: normal;">
+@protocol OSCDelegateProtocol<BR>
+- (void) receivedOSCMessage:(OSCMessage *)m;<BR>
+@end
+</div>
+\endhtmlonly
+
+...if you want to work with received OSC data, OSCManager's delegate must respond to this method!
 */
 
+
+
+
 @interface OSCManager : NSObject {
-	NSMutableArray			*inPortArray;
-	NSMutableArray			*outPortArray;
+	MutLockArray			*inPortArray;	//	MutLockArray.  Array of OSCInPorts- do not access without using the lock!
+	MutLockArray			*outPortArray;	//	MutLockArray.  Array of OSCOutPorts- do not access without using the lock!
 	
-	pthread_rwlock_t		inPortLock;
-	pthread_rwlock_t		outPortLock;
+	id						delegate;		//!<If there's a delegate, it will be notified when OSC messages are received
 	
-	id						delegate;
-	
-	OSCZeroConfManager		*zeroConfManager;	//	bonjour/zero-configuration manager
+	OSCZeroConfManager		*zeroConfManager;	//!<Creates OSCOutPorts for any OSC destinations detected via bonjour/zeroconf
 }
 
+///	Deletes all input ports
 - (void) deleteAllInputs;
+///	Deletes all output ports
 - (void) deleteAllOutputs;
-//	methods for creating input ports
+
+///	Creates a new input from a snapshot dict (the snapshot must have been created via OSCInPort's createSnapshot method)
 - (OSCInPort *) createNewInputFromSnapshot:(NSDictionary *)s;
+///	Creates a new input for a given port and label
 - (OSCInPort *) createNewInputForPort:(int)p withLabel:(NSString *)l;
+///	Creates a new input for a given port, automatically generates a label
 - (OSCInPort *) createNewInputForPort:(int)p;
+///	Creates a new input at an arbitrary port (it tries to use port 1234) and label
 - (OSCInPort *) createNewInput;
-//	methods for creating output ports
+
+///	Creates a new output from a snapshot dict (the snapshot must have been created via OSCOutPort's createSnapshot method)
 - (OSCOutPort *) createNewOutputFromSnapshot:(NSDictionary *)s;
+///	Creates a new output to a given address and port with the given label
 - (OSCOutPort *) createNewOutputToAddress:(NSString *)a atPort:(int)p withLabel:(NSString *)l;
+///	Creates a new output to a given address and port, automatically generates a label
 - (OSCOutPort *) createNewOutputToAddress:(NSString *)a atPort:(int)p;
+///	Creates a new output to this machine at port 1234
 - (OSCOutPort *) createNewOutput;
 
-//	typically, the manager is the input port's delegate- input ports tell delegates when they receive data
-//	this method is called and contains coalesced messages (grouped by address path)
-- (void) oscMessageReceived:(NSDictionary *)d;
-//	this method is called every time any osc val is processed
-- (void) receivedOSCVal:(id)v forAddress:(NSString *)a;
+///	Called when OSCInPorts are processing received messages serially (by default, the manager is an OSCInPort's delegate)
+- (void) receivedOSCMessage:(OSCMessage *)m;
 
-//	methods for working with ports
+//	Creates and returns a unique label for an input port (unique to this manager)
 - (NSString *) getUniqueInputLabel;
+//	Creates and returns a unique label for an output port (unique to this manager)
 - (NSString *) getUniqueOutputLabel;
+//	Finds and returns an input matching the passed label (returns nil if not found)
 - (OSCInPort *) findInputWithLabel:(NSString *)n;
+//	Finds and returns an output matching the passed label (returns nil if not found)
 - (OSCOutPort *) findOutputWithLabel:(NSString *)n;
+//	Finds and returns an output matching the passed address and port (returns nil if not found)
 - (OSCOutPort *) findOutputWithAddress:(NSString *)a andPort:(int)p;
+//	Returns the output at the provided index in outPortArray
 - (OSCOutPort *) findOutputForIndex:(int)i;
+//	Finds and returns the input whose zero conf name matches the passed string (returns nil if not found)
 - (OSCInPort *) findInputWithZeroConfName:(NSString *)n;
+///	Removes the passed input from the inPortArray
 - (void) removeInput:(id)p;
+///	Removes the passed output from the outPortArray
 - (void) removeOutput:(id)p;
+///	Generates and returns an array of strings which correspond to the labels of this manager's out ports
 - (NSArray *) outPortLabelArray;
 
-//	subclassable methods for customizing
+///	By default, returns [OSCInPort class]- subclass around to use different subclasses of OSCInPort
 - (id) inPortClass;
+//	By default, returns @"VVOSC"- subclass around this to use a different base string when generating in port labels
 - (NSString *) inPortLabelBase;
+///	By default, returns [OSCOutPort class]- subclass around to use different subclasses of OSCOutPort
 - (id) outPortClass;
 
 //	misc
+///	Returns the delegate (by default, an OSCManager doesn't have a delegate)
 - (id) delegate;
+///	Sets the delegate; the delegate is NOT retained, make sure you tell the manager's nil before releasing it!
 - (void) setDelegate:(id)n;
-- (NSMutableArray *) inPortArray;
-- (NSMutableArray *) outPortArray;
+- (id) inPortArray;
+- (id) outPortArray;
+
 
 @end
