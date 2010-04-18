@@ -30,11 +30,19 @@
 -(void) init_mod_OSCsettings: (NSString *)toAddress
                       atPort: (int)port
 {
-  outPort = [manager createNewOutputToAddress: toAddress atPort:port] ;
+  if (outPort == nil) {
+    outPort = [manager createNewOutputToAddress: toAddress atPort:port] ;
+  }
   if (outPort == nil)
     NSLog(@"\t\tError creating OSC output") ;
   else
-    NSLog([NSString stringWithFormat:@"Created to Address: %@ and port %d",toAddress, port]) ;
+    NSLog(@"Created to Address: %@ and port %d",toAddress, port) ;
+}
+
+-(void) disconnect_OSC
+{
+  [manager deleteAllOutputs] ;
+  NSLog(@"Deleted all OSC outputs") ;
 }
 
 -(void) change_OSCsettings: (NSString *)toAddress
@@ -43,12 +51,12 @@
   if (toAddress != nil)
   {
     [outPort setAddressString: toAddress] ;
-    NSLog([NSString stringWithFormat:@"Adress changed to %@", toAddress]) ;
+    NSLog(@"Adress changed to %@", toAddress) ;
   }
   if (port != -1)
   {
     [outPort setPort:port] ;
-    NSLog([NSString stringWithFormat:@"Port changed to %d", port]) ;
+    NSLog(@"Port changed to %d", port) ;
   }
 }
 
@@ -64,7 +72,8 @@
 	(OSCBundle*) bundle ;
 	
 	//	make a message to the specified address
-	msg = [OSCMessage createMessageToAddress: [NSString stringWithFormat:@"/wiimote/%@/%@", [self OSCdestinationPath],type]] ;
+	//msg = [OSCMessage createMessageToAddress: [NSString stringWithFormat:@"/wiimote/%@/%@", [self OSCdestinationPath],type]] ;
+	msg = [OSCMessage createWithAddress: [NSString stringWithFormat:@"/wiimote/%@/%@", [self OSCdestinationPath],type]] ;
   for (i = 0; i < [value_array count]; i++) {
     [msg addFloat:[[value_array objectAtIndex:i] floatValue]] ;
   }

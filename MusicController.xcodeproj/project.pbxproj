@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -25,8 +25,6 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		631191FB0E0C0BE9004565F9 /* GeneradorEv.m in Sources */ = {isa = PBXBuildFile; fileRef = 631191FA0E0C0BE9004565F9 /* GeneradorEv.m */; };
-		631610AA0F0A2C7200D4655D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 631610A90F0A2C7200D4655D /* dsa_pub.pem */; };
-		631610AC0F0A386D00D4655D /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 631610AB0F0A386D00D4655D /* appcast.xml */; };
 		631611DF0F0A8BC400D4655D /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 631611DE0F0A8BC400D4655D /* LICENSE.txt */; };
 		631611E80F0A94B900D4655D /* icons2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 631611E70F0A94B900D4655D /* icons2.icns */; };
 		6351A9E2106E2799004E42FB /* WiiRemote.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6352DB1C106E1C81008001F9 /* WiiRemote.framework */; };
@@ -34,19 +32,18 @@
 		638A68E9117A2DC4000B84CB /* OSCEventClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A68E8117A2DC4000B84CB /* OSCEventClass.m */; };
 		638A68EE117A2DD3000B84CB /* MidiDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A68EC117A2DD3000B84CB /* MidiDevice.m */; };
 		638A68EF117A2DD3000B84CB /* MidiEventOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 638A68ED117A2DD3000B84CB /* MidiEventOutput.m */; };
-		639B073A0E1000F900EE376F /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 639B07390E1000F900EE376F /* icons.icns */; };
 		639CE7400E0BAB8500A20F57 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639CE73F0E0BAB8500A20F57 /* AppController.m */; };
 		639CE7CD0E0BBD8A00A20F57 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */; };
 		63B1EECB0E0D6CBE003691CA /* WiiControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1EECA0E0D6CBE003691CA /* WiiControls.m */; };
 		63B912220E0E57FD00CE2779 /* Documentation.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63B912210E0E57FD00CE2779 /* Documentation.rtf */; };
-		63D0B7C9117B385800C100B2 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */; };
-		63D0B7CC117B387400C100B2 /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */; };
+		63D0BA2A117B855A00C100B2 /* VVOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D0BA29117B855A00C100B2 /* VVOSC.framework */; };
+		63D0BA2D117B855E00C100B2 /* VVOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63D0BA29117B855A00C100B2 /* VVOSC.framework */; };
+		63D0BA72117B897000C100B2 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D0BA71117B897000C100B2 /* BWToolkitFramework.framework */; };
+		63D0BAF5117B90B500C100B2 /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63D0BA71117B897000C100B2 /* BWToolkitFramework.framework */; };
 		63E4C110117A0FBE00BBB64F /* VVBasics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E4C10D117A0FBE00BBB64F /* VVBasics.framework */; };
 		63E4C111117A0FBE00BBB64F /* VVMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */; };
-		63E4C112117A0FBE00BBB64F /* VVOSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63E4C10F117A0FBE00BBB64F /* VVOSC.framework */; };
 		63E4C13F117A0FCE00BBB64F /* VVBasics.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63E4C10D117A0FBE00BBB64F /* VVBasics.framework */; };
 		63E4C140117A0FCE00BBB64F /* VVMIDI.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */; };
-		63E4C141117A0FCE00BBB64F /* VVOSC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63E4C10F117A0FBE00BBB64F /* VVOSC.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -69,10 +66,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				63D0B7CC117B387400C100B2 /* BWToolkitFramework.framework in CopyFiles */,
+				63D0BAF5117B90B500C100B2 /* BWToolkitFramework.framework in CopyFiles */,
+				63D0BA2D117B855E00C100B2 /* VVOSC.framework in CopyFiles */,
 				63E4C13F117A0FCE00BBB64F /* VVBasics.framework in CopyFiles */,
 				63E4C140117A0FCE00BBB64F /* VVMIDI.framework in CopyFiles */,
-				63E4C141117A0FCE00BBB64F /* VVOSC.framework in CopyFiles */,
 				6351A9E2106E2799004E42FB /* WiiRemote.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,8 +87,6 @@
 		32CA4F630368D1EE00C91783 /* MusicController_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicController_Prefix.pch; sourceTree = "<group>"; };
 		631191F90E0C0BE9004565F9 /* GeneradorEv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneradorEv.h; sourceTree = "<group>"; };
 		631191FA0E0C0BE9004565F9 /* GeneradorEv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneradorEv.m; sourceTree = "<group>"; };
-		631610A90F0A2C7200D4655D /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = SOURCE_ROOT; };
-		631610AB0F0A386D00D4655D /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = SOURCE_ROOT; };
 		631611DE0F0A8BC400D4655D /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		631611E70F0A94B900D4655D /* icons2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons2.icns; sourceTree = SOURCE_ROOT; };
 		6352DB1C106E1C81008001F9 /* WiiRemote.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WiiRemote.framework; path = Frameworks/WiiRemote.framework; sourceTree = SOURCE_ROOT; };
@@ -108,10 +103,10 @@
 		63B1EEC90E0D6CBE003691CA /* WiiControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiControls.h; sourceTree = "<group>"; };
 		63B1EECA0E0D6CBE003691CA /* WiiControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiiControls.m; sourceTree = "<group>"; };
 		63B912210E0E57FD00CE2779 /* Documentation.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Documentation.rtf; sourceTree = "<group>"; };
-		63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = /Users/david/src/BWToolkit/BWToolkitFramework.framework; sourceTree = "<absolute>"; };
+		63D0BA29117B855A00C100B2 /* VVOSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVOSC.framework; path = Frameworks/VVOSC.framework; sourceTree = "<group>"; };
+		63D0BA71117B897000C100B2 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = ../BWToolkit/BWToolkitFramework.framework; sourceTree = SOURCE_ROOT; };
 		63E4C10D117A0FBE00BBB64F /* VVBasics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVBasics.framework; path = Frameworks/VVBasics.framework; sourceTree = "<group>"; };
 		63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVMIDI.framework; path = Frameworks/VVMIDI.framework; sourceTree = "<group>"; };
-		63E4C10F117A0FBE00BBB64F /* VVOSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVOSC.framework; path = Frameworks/VVOSC.framework; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* MusicController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -126,8 +121,8 @@
 				6352DB1F106E1C81008001F9 /* WiiRemote.framework in Frameworks */,
 				63E4C110117A0FBE00BBB64F /* VVBasics.framework in Frameworks */,
 				63E4C111117A0FBE00BBB64F /* VVMIDI.framework in Frameworks */,
-				63E4C112117A0FBE00BBB64F /* VVOSC.framework in Frameworks */,
-				63D0B7C9117B385800C100B2 /* BWToolkitFramework.framework in Frameworks */,
+				63D0BA2A117B855A00C100B2 /* VVOSC.framework in Frameworks */,
+				63D0BA72117B897000C100B2 /* BWToolkitFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,13 +147,13 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63D0BA71117B897000C100B2 /* BWToolkitFramework.framework */,
 				63E4C10D117A0FBE00BBB64F /* VVBasics.framework */,
 				63E4C10E117A0FBE00BBB64F /* VVMIDI.framework */,
-				63E4C10F117A0FBE00BBB64F /* VVOSC.framework */,
 				6352DB1C106E1C81008001F9 /* WiiRemote.framework */,
 				639CE7CC0E0BBD8A00A20F57 /* CoreMIDI.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
-				63D0B7C8117B385800C100B2 /* BWToolkitFramework.framework */,
+				63D0BA29117B855A00C100B2 /* VVOSC.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -207,8 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				631611E70F0A94B900D4655D /* icons2.icns */,
-				631610AB0F0A386D00D4655D /* appcast.xml */,
-				631610A90F0A2C7200D4655D /* dsa_pub.pem */,
 				639B07390E1000F900EE376F /* icons.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -282,8 +275,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = davebv.com;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MusicController" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MusicController */;
 			projectDirPath = "";
@@ -303,9 +299,6 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				63B912220E0E57FD00CE2779 /* Documentation.rtf in Resources */,
-				639B073A0E1000F900EE376F /* icons.icns in Resources */,
-				631610AA0F0A2C7200D4655D /* dsa_pub.pem in Resources */,
-				631610AC0F0A386D00D4655D /* appcast.xml in Resources */,
 				631611DF0F0A8BC400D4655D /* LICENSE.txt in Resources */,
 				631611E80F0A94B900D4655D /* icons2.icns in Resources */,
 			);
@@ -420,8 +413,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
-					"\"$(SRCROOT)/../vvosc/build/Release\"",
-					"\"$(SRCROOT)/../Sparkle 1.5b6\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../BWToolkit\"",
 				);
@@ -448,8 +439,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
-					"\"$(SRCROOT)/../vvosc/build/Release\"",
-					"\"$(SRCROOT)/../Sparkle 1.5b6\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../BWToolkit\"",
 				);
@@ -468,7 +457,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = "Frameworks/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;

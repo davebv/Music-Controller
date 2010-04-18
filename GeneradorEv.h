@@ -72,6 +72,9 @@ typedef enum MODO_FUNC {
 //@property (readwrite,assign) double pitchb;
 @property (readwrite,assign) double mediapitchb;
 
+
+-(id) initWithWii: (WiiRemote *) wiimote ;
+
 -(void)cambiaModo:(WiiControls *)_wiicontrols 
        conWiimote:(WiiRemote *)wiimote
         isPressed:(BOOL)apretado;

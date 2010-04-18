@@ -158,13 +158,17 @@
 	// the wiimote must be retained because the discovery provides us with an autoreleased object
 	wii = [wiimote retain];
 	[wiimote setDelegate:self];
+  
+  // Logica
+	[wii setLEDEnabled1:1 enabled2:0 enabled3:0 enabled4:1] ;
+
 	
 	[textStatusWii setStringValue:@"Connected to WiiRemote"];
 	[discoverySpinner stopAnimation:self];
 	// Desacivo el botón de "discover"
 	[bDiscovery setEnabled:NO];
 	
-	[wiimote setLEDEnabled1:YES enabled2:NO enabled3:NO enabled4:YES];
+	//[wiimote setLEDEnabled1:YES enabled2:NO enabled3:NO enabled4:YES];
 	
 	[wiimote setMotionSensorEnabled:YES];
 	//	[wiimote setIRSensorEnabled:YES];
@@ -375,8 +379,14 @@
     return;
   }
   [OSCobjeto init_mod_OSCsettings:[remoteOSCAddress stringValue] atPort:[OSCport intValue]] ;
-
 }
+
+-(IBAction)disconnectOSC:(id)sender
+{
+  [OSCobjeto disconnect_OSC] ;
+}
+
+
 -(IBAction)setupField:(id)sender
 {
   switch ([sender tag]){
@@ -442,9 +452,9 @@
 
 
 // Close last window
--(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
-{
-  return YES;
-}
+//-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
+//{
+  //return YES;
+//}
 
 @end

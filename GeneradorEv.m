@@ -9,6 +9,7 @@
 #import "GeneradorEv.h"
 
 @implementation GeneradorEv
+
 -(id)init {
 	[super init];
 	
@@ -42,6 +43,44 @@
 		pitchb[i] = 0 ;
 	}
 	return self;
+}
+
+-(id) initWithWii: (WiiRemote *) wii
+{
+  if (self = [super init])
+  {
+    [self setValue:[NSString stringWithFormat:@"Learn Mode"]
+            forKey:@"modoSTR"] ;
+    [self setValue:[NSNumber numberWithInt:0]
+            forKey:@"modo"] ;
+    [self setValue:[NSNumber numberWithInt:0]
+            forKey:@"modo_ant"] ;
+    variableA = NO ;
+    valorrotANT1 = 127 ;
+    valorincANT1 = 127 ;
+    valorrotANT2 = 127 ;
+    valorincANT2 = 127 ;
+    valorrotANT3 = 127 ;
+    valorincANT3 = 127 ;
+    valorrotANT4 = 127 ;
+    valorincANT4 = 127 ;
+    
+    // Threshold for scene Acceleration
+    umbral = 1.8;
+    
+    contador = 0;
+    
+    //init buffers
+    for (int i = 0 ; i < LONG_BUF ; i++) {
+      acelex[i] = 0 ;
+      aceley[i] = 0 ;
+      acelez[i] = -1.0 ;
+      rollb[i] = 0 ;
+      pitchb[i] = 0 ;
+    }
+    [self cambiaModo:LEARN_MODE conWiimote: wii] ;
+  }
+  return self;
 }
 
 @synthesize modoSTR;
@@ -169,7 +208,7 @@
 {
   float cc_note = -1, value_cc_note = -1;
 	switch (modo) {
-		case 0:
+		case LEARN_MODE:
       switch (boton) {
         case WiiRemoteOneButton:
           cc_note = 32; value_cc_note = 64 ;
@@ -193,7 +232,7 @@
       [oscObj sendOSCPacket_float:[NSArray arrayWithObjects:[NSNumber numberWithFloat:cc_note], [NSNumber numberWithFloat:value_cc_note], nil]
                           typeOSC:[NSString stringWithFormat:@"ctrl"]] ;
       break;
-		case 1:
+		case BEATS_MODE:
 			switch (boton) {
 				case WiiRemoteAButton:
           cc_note = 7; value_cc_note = 127 ;
@@ -270,7 +309,7 @@
 				default: break;
 			}
 			break;
-		case 2:
+		case FILTERS_MODE:
 			switch (boton) {
 				case WiiRemoteUpButton:
 					if ([_wiicontrols UpButton]) {
@@ -345,7 +384,7 @@
 			}
 			break;
 
-		case 3:
+		case SCRATCH_MODE:
 			switch (boton) {
         case WiiRemoteUpButton:
 					if ([_wiicontrols UpButton]) {
@@ -406,7 +445,7 @@
 				default: break;
 			}
       break;
-		case 4:
+		case LASER_MODE:
 			switch (boton) {
 				case WiiRemoteUpButton:
           cc_note = 35; value_cc_note = 0 ;
@@ -464,7 +503,7 @@
 				default: break;
 			}
       break;
-    case 5: // 1 button, 1 note
+    case ONEONONE_MODE: // 1 button, 1 note
 			switch (boton) {
 				case WiiRemoteUpButton:
 					if ([_wiicontrols UpButton]) {
@@ -695,8 +734,8 @@
 		contador = 0;
 		// se procede a mandar los controles correspondientes
 		switch (modo) {
-			case 0: break;
-			case 1:
+			case LEARN_MODE: break;
+			case BEATS_MODE:
 				// Scene Launch
 				if (mediaacely > umbral && [_wiicontrols BButton]) {
 					//NSLog(@"Prueba superada");
@@ -739,7 +778,7 @@
 				if ([_wiicontrols BButton])	{
 				}
 				break;
-			case 2:
+			case FILTERS_MODE:
 				// Scene Launch
 				if (mediaacely > umbral && [_wiicontrols BButton]) {
 					//NSLog(@"Prueba superada");
@@ -785,7 +824,7 @@
 					[evts pushControl:35 value:0];
 				}
 				break;
-			case 3:
+			case SCRATCH_MODE:
 				// Scene Launch
 				if (mediaacely > umbral && [_wiicontrols BButton]) {
 					//NSLog(@"Prueba superada");
@@ -832,7 +871,7 @@
 					//[evts pushControl:35 value:0];
 				}
 				break;
-			case 4:
+			case LASER_MODE:
         // Filtros Efectos Master
 				if ([_wiicontrols AButton]) {
 					// Rotacion
@@ -872,7 +911,7 @@
 					//[evts pushControl:35 value:0];
 				}
         break;
-      case 5:
+      case ONEONONE_MODE:
         [oscObj sendOSCPacket_float:[NSArray arrayWithObjects: [NSNumber numberWithFloat:(float)[self mediaacelx]], nil]
                             typeOSC:[NSString stringWithFormat:@"Acc/X"]  ] ;
         [oscObj sendOSCPacket_float:[NSArray arrayWithObjects: [NSNumber numberWithFloat:(float)[self mediaacely]], nil]

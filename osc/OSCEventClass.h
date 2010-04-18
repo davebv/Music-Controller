@@ -24,6 +24,8 @@
 -(void) init_mod_OSCsettings: (NSString *)toAddress
                       atPort: (int)port ;
 
+-(void) disconnect_OSC ;
+
 -(void) change_OSCsettings: (NSString *)toAddress
                     atPort: (int)port ;
 

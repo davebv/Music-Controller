@@ -90,6 +90,7 @@
 
 // OSC
 -(IBAction)connectOSC:(id)sender;
+-(IBAction)disconnectOSC:(id)sender;
 -(IBAction)setupField:(id)sender;
 -(IBAction)testOSC:(id)sender;
 
@@ -106,7 +107,7 @@
 - (void) willStartWiimoteConnections;
 
 // CLose last window
--(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication ;
+//-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication ;
 
 
 @end
