@@ -3,7 +3,9 @@ Music Controller, Wiimote + MIDI + OSC made simple for OSX
 
 This is a simple program to send midi and osc values to a midi ports or osc clients.
 
-It is based on darwiinremote, (WiiRemote.framework), VVOSC.framework. 
+It is a fork from [Wii2Midi](http://mike.verdone.ca/wiitomidi/) by Mike Verdone.
+
+It is based on [darwiinremote](http://sourceforge.net/projects/darwiin-remote/files/) (WiiRemote.framework), [VVOSC.framework](http://code.google.com/p/vvopensource/).
 
 (TODO) Complete documentation!
 
