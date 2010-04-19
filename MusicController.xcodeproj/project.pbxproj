@@ -11,7 +11,6 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 631611260F0A4C5800D4655D /* Build configuration list for PBXAggregateTarget "Distribution" */;
 			buildPhases = (
-				631611190F0A4C3900D4655D /* ShellScript */,
 				63025E320F0B908E00F4A18F /* ShellScript */,
 			);
 			dependencies = (
@@ -255,6 +254,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "MusicController" */;
 			buildPhases = (
+				63B181DA117C90C800AADBD9 /* ShellScript */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
@@ -318,13 +318,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#!/bin/bash\nset -o errexit\n\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\n#VERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nVERSION=`/opt/local/bin/git describe`\n#SHORT_VERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" #CFBundleShortVersionString)\n#DOWNLOAD_BASE_URL=\"http://musiccontroller.googlecode.com/files\"\n#RELEASENOTES_URL=\"http://code.google.com/p/musiccontroller/source/detail?r=$VERSION\"\n\nARCHIVE_FILENAME_ZIP=\"$PROJECT_NAME.$SHORT_VERSION.$VERSION.zip\"\nARCHIVE_FILENAME=\"$PROJECT_NAME.$SHORT_VERSION.$VERSION.dmg\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key 1\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nzip -qr \"$ARCHIVE_FILENAME_ZIP\" \"$PROJECT_NAME.app\"\n\nrm -f \"$PROJECT_NAME\"*.dmg\n\n/opt/local/bin/dmgcanvas -t $SRCROOT/MusicControllerDMG.dmgCanvas -o $BUILT_PRODUCTS_DIR/$ARCHIVE_FILENAME\n\n#SIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\n#PUBDATE=$(date +\"%a, %d %b %G %T %z\")\n#SIGNATURE=$(\n#\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n#\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/#dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g') \\\n#\t| openssl enc -base64\n#)\n\n#[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from #keychain; false; }\n\n#cat <<EOF\n#\t\t<item>\n#\t\t\t<title>Version $SHORT_VERSION $VERSION</title>\n#\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n#\t\t\t<pubDate>$PUBDATE</pubDate>\n#\t\t\t<enclosure\n#\t\t\t\turl=\"$DOWNLOAD_URL\"\n#\t\t\t\tsparkle:version=\"$VERSION\"\n#\t\t\t\tsparkle:shortVersionString=\"$SHORT_VERSION\"\n#\t\t\t\ttype=\"application/octet-stream\"\n#\t\t\t\tlength=\"$SIZE\"\n#\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n#\t\t\t/>\n#\t\t</item>\n#EOF\n\n#echo scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\n#echo scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml";
+			shellScript = "#!/bin/bash\nset -o errexit\n\n\n[ $BUILD_STYLE = Release ] || { echo Distribution target requires \"'Release'\" build style; false; }\n\n#VERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" CFBundleVersion)\nVERSION=`/opt/local/bin/git describe`\n#SHORT_VERSION=$(defaults read \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info\" #CFBundleShortVersionString)\n#DOWNLOAD_BASE_URL=\"http://musiccontroller.googlecode.com/files\"\n#RELEASENOTES_URL=\"http://code.google.com/p/musiccontroller/source/detail?r=$VERSION\"\n\nARCHIVE_FILENAME_ZIP=\"$PROJECT_NAME.$VERSION.zip\"\nARCHIVE_FILENAME=\"$PROJECT_NAME.$SHORT_VERSION.$VERSION.dmg\"\nDOWNLOAD_URL=\"$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME\"\nKEYCHAIN_PRIVKEY_NAME=\"Sparkle Private Key 1\"\n\nWD=$PWD\ncd \"$BUILT_PRODUCTS_DIR\"\nrm -f \"$PROJECT_NAME\"*.zip\nzip -qr \"$ARCHIVE_FILENAME_ZIP\" \"$PROJECT_NAME.app\"\n\nrm -f \"$PROJECT_NAME\"*.dmg\n\n/opt/local/bin/dmgcanvas -t $SRCROOT/MusicControllerDMG.dmgCanvas -o $BUILT_PRODUCTS_DIR/$ARCHIVE_FILENAME\n\n#SIZE=$(stat -f %z \"$ARCHIVE_FILENAME\")\n#PUBDATE=$(date +\"%a, %d %b %G %T %z\")\n#SIGNATURE=$(\n#\topenssl dgst -sha1 -binary < \"$ARCHIVE_FILENAME\" \\\n#\t| openssl dgst -dss1 -sign <(security find-generic-password -g -s \"$KEYCHAIN_PRIVKEY_NAME\" 2>&1 1>/#dev/null | perl -pe '($_) = /\"(.+)\"/; s/\\\\012/\\n/g') \\\n#\t| openssl enc -base64\n#)\n\n#[ $SIGNATURE ] || { echo Unable to load signing private key with name \"'$KEYCHAIN_PRIVKEY_NAME'\" from #keychain; false; }\n\n#cat <<EOF\n#\t\t<item>\n#\t\t\t<title>Version $SHORT_VERSION $VERSION</title>\n#\t\t\t<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>\n#\t\t\t<pubDate>$PUBDATE</pubDate>\n#\t\t\t<enclosure\n#\t\t\t\turl=\"$DOWNLOAD_URL\"\n#\t\t\t\tsparkle:version=\"$VERSION\"\n#\t\t\t\tsparkle:shortVersionString=\"$SHORT_VERSION\"\n#\t\t\t\ttype=\"application/octet-stream\"\n#\t\t\t\tlength=\"$SIZE\"\n#\t\t\t\tsparkle:dsaSignature=\"$SIGNATURE\"\n#\t\t\t/>\n#\t\t</item>\n#EOF\n\n#echo scp \"'$HOME/svn/my-cool-app/build/Release/$ARCHIVE_FILENAME'\" www.example.com:download/\n#echo scp \"'$WD/appcast.xml'\" www.example.com:web/software/my-cool-app/appcast.xml";
 			showEnvVarsInLog = 0;
 		};
-		631611190F0A4C3900D4655D /* ShellScript */ = {
+		63B181DA117C90C800AADBD9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
-			comments = "Generate .zip";
 			files = (
 			);
 			inputPaths = (
@@ -333,7 +332,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /usr/bin/ruby;
-			shellScript = "#!/usr/bin/env ruby\n\n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n\n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n\n# Create new tags with \"git tag <version> -m <message>\"\n\n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n\n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n\n\ngitnum = `/opt/local/bin/git describe --long`.chomp.split(\"-\")\n\nif gitnum.length > 3\n  version = gitnum[0] + gitnum[1] + \" (b#{gitnum[-2]} #{gitnum[-1]})\"\nelse\n  version = gitnum[0] + \" (b#{gitnum[-2]} #{gitnum[-1]})\"\nend\n\ninfo_file = File.join(ENV['PROJECT_DIR'], 'Info.plist')\ninfo = File.open(info_file, \"r\").read\n\nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbundle_version_string = $1 + version + $2\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nversion_re = /([\\t ]+<key>CFBundleShortVersionString<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbundle_version_string = $1 + gitnum[0] + gitnum[1] + $2\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"";
+			shellScript = "#!/usr/bin/env ruby\n\n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n\n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n\n# Create new tags with \"git tag <version> -m <message>\"\n\n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n\n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n\n\ngitnum = `/opt/local/bin/git describe --long`.chomp.split(\"-\")\n\nif gitnum.length > 3\n  version = gitnum[0] + gitnum[1] + \" (b#{gitnum[-2]} #{gitnum[-1]})\"\nelse\n  version = gitnum[0] + \" (b#{gitnum[-2]} #{gitnum[-1]})\"\nend\n\ninfo_file = File.join(ENV['PROJECT_DIR'], 'Info.plist')\ninfo = File.open(info_file, \"r\").read\n\nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbundle_version_string = $1 + version + $2\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nversion_re = /([\\t ]+<key>CFBundleShortVersionString<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nif gitnum.length > 3\n  bundle_version_string = $1 + gitnum[0] + gitnum[1] + $2\nelse\n  bundle_version_string = $1 + gitnum[0] + $2\nend\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -471,7 +470,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = "Frameworks/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

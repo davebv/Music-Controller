@@ -21,10 +21,10 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="794"/>
 			<integer value="791"/>
-			<integer value="747"/>
-			<integer value="501"/>
+			<integer value="371"/>
+			<integer value="793"/>
+			<integer value="746"/>
 			<integer value="24"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -758,7 +758,7 @@
 				<int key="NSWindowStyleMask">8341</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{41, 524}, {438, 237}}</string>
-				<int key="NSWTFlags">-201325568</int>
+				<int key="NSWTFlags">872416256</int>
 				<string key="NSWindowTitle">MusicController | davebv.es</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
@@ -1249,9 +1249,9 @@
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSWindowTemplate" id="769326484">
-				<int key="NSWindowStyleMask">8211</int>
+				<int key="NSWindowStyleMask">8215</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{487, 701}, {382, 59}}</string>
+				<string key="NSWindowRect">{{486, 701}, {382, 59}}</string>
 				<int key="NSWTFlags">-1535639552</int>
 				<string key="NSWindowTitle">MIDI</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -1357,7 +1357,7 @@
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSWindowTemplate" id="204567295">
-				<int key="NSWindowStyleMask">8211</int>
+				<int key="NSWindowStyleMask">8215</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{486, 523}, {303, 151}}</string>
 				<int key="NSWTFlags">-1535639552</int>
