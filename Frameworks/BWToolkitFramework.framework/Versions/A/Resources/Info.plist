@@ -5,28 +5,18 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string>icons2</string>
+	<string>BWToolkitFramework</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.davebv.${PRODUCT_NAME:identifier}</string>
+	<string>com.brandonwalkin.BWToolkitFramework</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>v1.0.0beta</string>
+	<string>FMWK</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>v1.0.0beta (b5 g73792b0)</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
+	<string>1.2.5</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-	<key>CFBundleGitVersion</key>
-	<string></string>
+	<string>BWToolkit</string>
 </dict>
 </plist>
